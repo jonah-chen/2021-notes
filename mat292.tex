@@ -1,0 +1,52 @@
+\documentclass[a4paper]{article}
+\title{MAT292---ODE}
+\author{Jonah Chen}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{braket}
+\usepackage{physoly}
+\usepackage{currfile}
+\usepackage{gensymb}
+\usepackage{amssymb}
+\usepackage{pgf,tikz,pgfplots}
+\usepackage{mathrsfs}
+\usepackage{textcomp}
+\usetikzlibrary{arrows}
+\numberwithin{equation}{section}
+\pgfplotsset{compat=1.16}
+\begin{document}
+
+\maketitle
+\tableofcontents
+\section{Newton's Law of Cooling}
+Newtons law of cooling states that
+\begin{equation}
+    \frac{\dd u}{\dd t}=-k(u-T_0)
+\end{equation}
+Note that there is one trivial solution, the equilibrium solution is $u(t)=T_0$. The meaning of this solution is the temperature of an object doesn't change when it is already at the equilibrium temperature.
+
+\begin{align}
+    \frac{\frac{\dd u}{\dd t}}{u-T_0}&=-k\\
+    \frac{\dd}{\dd t}\log(u-T_0)&=-k\\
+    \log(u-T_0)&=-kt+c_1\\
+    u=T_0+\exp(c_1)\exp(-kt)&=T_0+c_2\exp(-kt)
+\end{align}
+Note that $c_2=\exp(c_1)>0$. However, this is not a complete solution as it cannot describe the solutions with $u<T_0$.
+
+\textbf{Warning:} note that the integral of $\frac{1}{x}$ is $\log|x|$, \textbf{NOT} $\log(x)$. This is what caused the solution to be incomplete.
+
+Hence, $c_2=\pm\exp(c_1)$. Note that $c_1=\pm\infty$ is allowed thus so $c_2$ can take any value.
+
+Below are the integral curves.
+% \begin{center}
+%     \begin{tikzpicture}
+%         \begin{axis}
+%             \addplot[domain=0:5]{60-15*exp(x)}
+%         \end{axis}
+%     \end{tikzpicture}
+% \end{center}
+
+
+
+\end{document}

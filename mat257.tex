@@ -1,0 +1,128 @@
+\documentclass[a4paper]{article}
+\title{MAT257---Analysis}
+\author{Jonah Chen}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{braket}
+\usepackage{physoly}
+\usepackage{currfile}
+\usepackage{gensymb}
+\usepackage{amssymb}
+\usepackage{pgf,tikz,pgfplots}
+\usepackage{mathrsfs}
+\usepackage{textcomp}
+\usetikzlibrary{arrows}
+\numberwithin{equation}{section}
+\pgfplotsset{compat=1.16}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\section{Course Overview}
+\begin{itemize}
+    \item $\mathbb R\to\mathbb R^n$
+    \item Linear Algebra
+    \item Continuity
+    \item Differentiability
+    \item Integration
+    \item Key theorem of this class is \textbf{Stokes' Theorem}
+    \begin{equation}
+        \int_C\dd\omega=\int_{\partial C}\omega
+    \end{equation}
+    Generalizes the fundamental theorem of calculus:
+    \begin{equation}
+        \int_{[a,b]}F'(t)\dd t=F(b)-F(a)=\int_{\partial[a,b]}F
+    \end{equation}
+    Note that $\partial[a,b]=\{b+, a-\}$.
+\end{itemize}
+
+\section{Review}
+\subsection{Continuity}
+\begin{itemize}
+    \item Roughly speaking, continuity from $\mathbb R\to\mathbb R$ means if two points are near, their images should be near also.
+    \item Thus, in $\mathbb R^n$, the intuitive meaning should be similar.
+\end{itemize}
+
+
+Note there are 2 conventions for $\mathbb R^n$
+\begin{enumerate}
+    \item The set of all n-dimensional real column vectors.
+    \item The set of all n-dimensional real row vectors.
+\end{enumerate}
+In this class, the distinction is not very important.
+
+\begin{definition}
+    For $x, y\in\mathbb R^n$, "The standard (or euclidian) inner product of $x$ and $y$, denoted 
+    \begin{equation}
+        \langle x, y\rangle = \sum_{i=1}^n x_iy_i
+    \end{equation}
+    The norm-squared of $x$ is 
+    \begin{equation}
+        |x|^2=\langle x, x\rangle = \sum x_i^2
+    \end{equation}
+    and the norm of $x$ is
+    \begin{equation}
+        |x|=\sqrt{|x|^2} = \sqrt{\sum x_i^2}
+    \end{equation}
+\end{definition}
+
+\begin{proposition}
+    If $x, y, z\in\mathbb R^n$ and $a, b\in\mathbb R$, then
+    \begin{enumerate}
+        \item The inner product is bilinear \& the norm is ``semi-linear''.
+        \begin{align}
+                \langle ax+by,z \rangle &= a\langle x, z\rangle + b\langle y, z\rangle\\
+            \langle z, ax+by \rangle &= \dots\\
+            |ax|&=|a||x|
+        \end{align}
+        \textbf{Aside}: 
+        \begin{equation}
+            1=\sqrt 1=\sqrt{-1\cdot-1}=\sqrt{-1}\sqrt{-1}=i\cdot i=-1
+        \end{equation}
+        \item \begin{equation}
+            |x|\geq 0 \& |x|=0\iff x=0
+        \end{equation}
+        \item \begin{equation}
+            \langle x,y\rangle = \langle y,x \rangle
+        \end{equation}
+        \item \textit{Cauchy-Schwarz inequality}
+        \begin{equation}
+            |\langle x,y\rangle|\leq|x||y|
+        \end{equation}
+        with equality if $x\&y$ are dependent. 
+        \item \textit{Triangle inequality}
+        \begin{equation}
+            |x+y|\leq |x|+|y|
+        \end{equation}
+        \item \textit{Polarization identity}
+        \begin{equation}
+            \langle x,y\rangle = \frac{|x+y|^2-|x-y|^2}{4}
+        \end{equation}
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    \begin{enumerate}
+        \item $|x|=\sqrt{\sum x_i^2}$
+        $|x|=0\implies\sum x_i^2=0\implies\forall i, x_i^2=0\implies \forall i,x_i=0\implies x=0$
+        \item 
+        For $s,t\in\mathbb R^n$
+        \begin{equation}
+            |s+t|^2=|s|^2+|t|^2+2\langle s,t \rangle
+        \end{equation}
+
+        Look at 
+        \begin{align}
+            0\leq\Big||y|^2x-\langle x,y\rangle y\Big|^2&=|y|^4|x|+\langle x,y\rangle^2|y|^2-2|y|^2\langle x,y\rangle^2\\
+            &=|y|^2\left(|y|^2|x|^2-\langle x,y \rangle^2\right)
+        \end{align}
+        This is equal to zero only if $|y|^2x-\langle x,y\rangle y=0$. If we have equality, that implies $x\&y$ are dependent.
+        \textbf{Why, what does this mean?}
+
+    \end{enumerate}
+\end{proof}
+
+
+
+\end{document}
