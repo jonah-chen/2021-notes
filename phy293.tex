@@ -1,9 +1,10 @@
 \documentclass[a4paper]{article}
-\title{PHY293---Waves}
+\title{PHY293---Waves \& Modern Physics}
 \author{Jonah Chen}
 
 
 \usepackage[utf8]{inputenc}
+\usepackage[margin=0.5in]{geometry}
 
 \usepackage{braket}
 \usepackage{physoly}
@@ -13,6 +14,7 @@
 \usepackage{pgf,tikz,pgfplots}
 \usepackage{mathrsfs}
 \usepackage{textcomp}
+\usepackage{siunitx}
 \usetikzlibrary{arrows}
 \numberwithin{equation}{section}
 \pgfplotsset{compat=1.16}
@@ -22,5 +24,105 @@
 \tableofcontents
 \section{Harmonic Oscillators}
 
+\begin{itemize}
+    \item Think of simple harmonic motion (SHM) as circular motion projected into one dimension. (a wave is rotation in the complex plane)
+    \item One of the simplest system is a mass on the spring, with known force $F=-k\Delta x$. 
+    \item For \textbf{SHM}, the motion must be periodic, and the force must be proportional to displacement.
+    \item Using Newton's 2nd law on the spring force,
+    \begin{align}
+        m\ddot x &= -kx\\
+        \ddot x + \frac{k}{m} x &= 0\label{12}
+    \end{align}
+    \item For a mass on the vertical spring, the equilibrium position will be lower due to gravity. 
+    \begin{align}
+        k(y_1-y_0)-mg&=0\\
+        y_1&=y_0+\frac{mg}{k}
+    \end{align}
+    $y_1$ is the new equilibrium position. SHM will still occur if the system is disturbed. 
+    \item Especially when dealing with energy, it is a good idea to have the origin at $y=y_1$.
+\end{itemize}
 
+\subsection{The Differential Equation}
+\begin{itemize}
+    \item The solution to \eqref{12} can be represented as \begin{align}
+        x=A\cos(\omega t+\varphi_0)
+    \end{align} 
+    \item $A$ represents the amplitude
+    \item $\varphi_0$ is the phase angle (initial phase)
+    \item $\omega=\sqrt{\frac{k}{m}}$ is the angular frequency.
+    \item The velocity and acceleration can be easily calculated by taking derivatives.
+    \begin{align}
+        \dot x&=-A\omega\sin(\omega t+\varphi_0)\\
+        \ddot x&=-A\omega^2\cos(\omega t+\varphi_0)
+    \end{align}
+    \item Another way to represent the full solution is
+    \begin{align}
+        x=a\cos(\omega t)+b\sin(\omega t)
+    \end{align}
+    where $a=A\cos\varphi_0, b=-A\sin\varphi_0$.
+\end{itemize}
+
+\begin{example}
+    Determine the amplitude and phase constant of a pendulum moving with a motion described by a sum of two functions, $x_1(t)=0.25\cos\omega t$ and $x_2(t)=-0.5\sin\omega t$.
+\end{example}
+\begin{sol}
+    \begin{align}
+        0.25&=A\cos\phi_0\label{1}\\
+        -0.50&=-A\sin\phi_0\label{2}
+    \end{align}
+    Figure out $phi_0$ from the ratio of eq.\eqref{2}/\eqref{1} % complete example
+\end{sol}
+
+\subsection{Energy of SHM}
+\begin{itemize}
+    \item A mass has kinetic energy of $T=\frac{1}{2}mv^2$.
+    \item The potential energy is related to the restoring force and by definition,
+    \begin{equation}
+        \Delta U=-\int F\cdot\dd x=-\int_{x_i}^{x^f}(-kx')\dd x'=\frac{1}{2}k(x_f^2-x_i^2)
+    \end{equation}
+    \item The conservation of energy here follows from newton's 2nd law.
+    \begin{align}
+        m\ddot x=-kx % complete derivation at home
+    \end{align}
+    \item Looking at the potential energy
+    \begin{align}
+        x&=A\cos(\omega t+\varphi_0)\\
+        U&=\frac{1}{2}kx^2=\frac{1}{2}kA^2\cos^2(\omega t)
+    \end{align}
+    \item Looking at the kinetic energy,
+    \begin{align}
+        T&=\frac{1}{2}mv^2=\frac{1}{2}m\omega^2A^2\sin^2(\omega t)
+    \end{align}
+    \item The total energy is
+    \begin{align}
+        E=T+\frac{1}{2}kA^2=\frac{1}{2}m\omega^2A^2=\frac{1}{2}mv_{MAX}^2
+    \end{align}
+\end{itemize}
+\subsection{Physics of Small Vibrations}
+\begin{itemize}
+    \item Most system will oscillate with SHM when the amplitude is small. Recall the taylor expansion of an analytic function
+    \begin{align}
+        f(x)&=f(a)+(x-a)f'(a)+(x-a)^2f''(a)+\dots
+    \end{align}
+    If $a$ is a minima, $f'(a)=0$. For $x\approx a$, the higher order terms % complete this
+    \item The potential energy of a pendulum is \begin{equation}
+        U = mgy=mgL(1-\cos\theta)
+    \end{equation}
+    \item \textbf{For this course, an angle $\theta<\SI{10}{\degree}$, it will be considered small.}
+    \item For a simple pendulum,
+    \begin{align}
+        -mg\sin\theta&=ma\\
+        -mg\sin\theta&=m\ddot s, s=L\theta, \dd s=L\dd theta\\
+        -g\sin\theta&=L\ddot\theta
+    \end{align}
+    For small angles, $\theta\approx\sin\theta$
+    \begin{align}
+        \ddot\theta+\frac{g}{L}\theta=0
+    \end{align}
+    This is the equation for SHM
+    \item The energy of the pendulum is 
+    \begin{align}
+        E=T+U\frac{1}{2}mv^2+mg\left(\frac{x^2}{2L}\right)
+    \end{align}
+\end{itemize}
 \end{document}
