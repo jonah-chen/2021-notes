@@ -1,0 +1,54 @@
+\documentclass[a4paper, 10pt]{article}
+\title{ECE253---a}
+\author{Jonah Chen}
+
+\usepackage[utf8]{inputenc}
+\usepackage[margin=0.5in]{geometry}
+
+\usepackage{braket}
+\usepackage{physoly}
+\usepackage{currfile}
+\usepackage{gensymb}
+\usepackage{amssymb}
+\usepackage{pgf,tikz,pgfplots}
+\usepackage{mathrsfs}
+\usepackage{textcomp}
+\usetikzlibrary{arrows}
+\numberwithin{equation}{section}
+\pgfplotsset{compat=1.16}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\section{Number Conversions}
+
+\begin{itemize}
+    \item Computers use binary. We use hexadecimal to make it less error-prone writing binary numbers.
+    \item Convert binary to hex: grouping four bits together makes the conversion easier. $0101\:1110=5e$.
+    \item Converting hex to binary: $a6=1010\:0110$
+    \item Converting binary to decimal: find the bit positions for all the ``1''s. $101\:0111=2^6+2^4+2^2+2^1+2^0=87$.
+    \item Converting decimal to binary: Repeatedly divide by two and get quotient and remainder. The remainders from the binary digits from least significant to most significant bits.
+    \begin{align*}
+        76/2&=38\\
+        38/2&=19\\
+        19/2&=9+1/2\\
+        9/2&=4+1/2\\
+        4/2&=2\\
+        2/2&=1\\
+        1/2&=0+1/2\\
+    \end{align*}
+    Thus, $76=1001100$. 
+    % 1000
+    % 256000=256*1000
+    % 256144=256000+144
+    \item Converting hex to decimal: $3e=3\times 16+14=62$.
+    \item Converting decimal to hex: We can use algorithmic way, which is repeatedly dividing by sixteen and take the remainders to extract the hex digits but dividing by 16 is very difficult. So, first convert to binary then convert to hex. $96=110\:0000=60$
+\end{itemize}
+
+\section{Binary addition}
+\begin{itemize}
+    \item Each step of computation has three inputs and two outputs. 
+\end{itemize}
+
+\end{document}
