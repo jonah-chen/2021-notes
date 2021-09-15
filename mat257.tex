@@ -72,6 +72,7 @@ In this class, the distinction is not very important.
 \begin{proposition}
     If $x, y, z\in\mathbb R^n$ and $a, b\in\mathbb R$, then
     \begin{enumerate}
+        \setcounter{enumi}{-1}
         \item The inner product is bilinear \& the norm is ``semi-linear''.
         \begin{align}
                 \langle ax+by,z \rangle &= a\langle x, z\rangle + b\langle y, z\rangle\\
@@ -139,7 +140,7 @@ In this class, the distinction is not very important.
         \end{enumerate}
     \end{prooof}
 \end{proposition}
-
+\subsection{Distance Functions}
 \begin{definition}
     If $x, y\in\R^n$,define the distance between $x\&y$
     \begin{equation}
@@ -179,7 +180,66 @@ In this class, the distinction is not very important.
     The distance functions for these norms also satisfys these three properties.
 \end{theorem}
 
+\begin{itemize}
+    \item There is a bijection between linear maps from $\R^n\to\R^m$ and the set of $m\times n$ matrices with real coefficients. This bijection can be realized by choosing a basis. 
+    \item In $\R^n$ or $\R^m$, there is a natural basis (the standard basis) $e_i=\begin{pmatrix}
+        0\\
+        \vdots\\
+        1\\
+        \vdots\\
+        0
+    \end{pmatrix}\leftarrow i-$th position
+    \item by $A\in M_{m\times n}\to L_A(x)=Ax$, where $x\in\R^n$.
+    \item If T is a linear transformation, $M_T=\begin{pmatrix}\:\\
+        Te_1|Te_2|\dots|Te_n\\\:
+    \end{pmatrix}$
+\end{itemize}
+\begin{definition}
+    Homomorphism: A map that preserve the structure.
+\end{definition}
+\begin{theorem}
+    \begin{enumerate}
+        \setcounter{enumi}{-1}
+        \item Bijective
+        \begin{align}
+            L_{(M_T)}=T, M_{(L_A)}=A
+        \end{align}
+        \item \begin{itemize}
+            \item $A\to L_A$ is linear: $L_{aA+bB}=aL_A+bL_b$
+            \item $T\to M_T$ is linear: $M_{aT+bS}=aM_T+bM_S$
+        \end{itemize}
+        \item Given $T: \R^n\to\R^m, S:\R^m\to\R^p$, and $S\circ T\equiv T//S: \R^n\to\R^p$.\\
+        Then, $M_SM_T=M_{S\circ T}$.
+    \end{enumerate}
+\end{theorem}
 
+End of the review.
 
+\section{Rectangles}
+\begin{itemize}
+    \item It is common to use intervals in $\R$. In $\R^n$, we use rectangles. 
+    \item To specify a rectangle, we must bound the each of the $n$ coordinates.
+\end{itemize}
+\begin{definition}
+    Given $a_i\leq b_i$, where $i=1,\dots, n$,
+    \begin{itemize}
+        \item The closed rectangle corresponding to $a_i,b_i$ is defined as
+        \begin{align}
+            R=\prod_{i=1}^n[a_i,b_i]=\{x\in\R^n:\forall i\:\: a_i\leq x_i\leq b_i\}
+        \end{align}
+        \item The opened rectangle defined by $a_i,b_i$ is defined as 
+        \begin{align}
+            R=\prod_{i=1}^n(a_i,b_i)=\{x\in\R^n:\forall i\:\: a_i<x_i<b_i\}
+        \end{align}
+    \end{itemize}
+\end{definition}
+\begin{itemize}
+    \item If $X\&Y$ are sets, we define (from set theory) the cartesian product $X\times Y=\{(x,y): x\in X,y\in Y\}$
+    \item Given 3 sets, the cartesian product is strictly speaking not associative as $((x,y),z)\neq(x,(y,z))$. However, for convinence we agree that $((x,y),z)=(x,y,z)=(x,(y,z))$. Thus, the cartesian product is associative.
+    \item $\R^n=\R\times\R\times\dots\times\R=\{(x_1,\dots,x_n):x_i\in\R\}$.
+\end{itemize}
+\begin{definition}
+    $A\subset\R^n$ is called an open set if $\forall a\in A\exists$ an open rectangle $R: x\in R\subset A$
+\end{definition}
 
 \end{document}
