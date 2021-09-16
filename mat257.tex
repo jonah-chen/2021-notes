@@ -242,4 +242,20 @@ End of the review.
     $A\subset\R^n$ is called an open set if $\forall a\in A\exists$ an open rectangle $R: x\in R\subset A$
 \end{definition}
 
+Clopen Sets:
+Suppose $A\subset\R^n$ is clopen $\implies$ $A^C$ is clopen. Suppose neither is empty. 
+
+Consider the line segment $l_{xy}(t)=ty+(1-t)x$.
+\begin{align}
+    l_{xy}(0)&=x\in A\\
+    l_{xy}(1)&=y\in A^C\\
+    t_0&=\sup_{t\in[0,1]}\{l_{xy}(t)\in A\}\\
+    l_{xy}(t_0)&=z
+\end{align}
+if $z\in A$, the rectangele containing $z\cap l_{xy}$ includes $l(t_0+\epsilon)\in A^C$ for some $\epsilon$.
+
+Similarly if $z\in A^C\implies$ one of $A$ and $A^C$ is not clopen so the other one isn't clopen either. 
+
+Thus, the only clopen sets is $\emptyset$ and $\R^n$
+
 \end{document}
