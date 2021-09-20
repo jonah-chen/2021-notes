@@ -44,6 +44,10 @@
 
 \subsection{The Differential Equation}
 \begin{itemize}
+    \item In general, the equation for simple harmonic motion is 
+    \begin{align}
+        \ddot x+\omega^2 x=0
+    \end{align}
     \item The solution to \eqref{12} can be represented as \begin{align}
         x=A\cos(\omega t+\varphi_0)
     \end{align} 
@@ -122,7 +126,105 @@
     This is the equation for SHM
     \item The energy of the pendulum is 
     \begin{align}
-        E=T+U\frac{1}{2}mv^2+mg\left(\frac{x^2}{2L}\right)
+        E=T+U=\frac{1}{2}mv^2+mg\left(\frac{x^2}{2L}\right)
     \end{align}
+    \item For physical pendulum, 
+    \begin{align}
+        \tau&=I\alpha=I\ddot\theta\\
+        -mgd\sin\theta&=I\ddot\theta
+    \end{align}
+    For small $\theta:\sin\theta\approx\theta$
+    \begin{align}
+        \ddot\theta+\frac{mgd}{I}\theta=0
+    \end{align}
+    \item For LC circuits, 
+    \begin{align}
+        \ddot i+\frac{1}{LC}i=0
+    \end{align}
+    When a resistor is connected, energy is lost as heat and the circuit behaves like a damped oscilator.
 \end{itemize}
+
+\begin{example}
+    
+\end{example}
+\section{Damped Oscillations}
+
+The damped oscillator involves the addition to the drag force that is proportional to $-v$ to the simple harmonic oscillator.
+
+Define
+\begin{align}
+    \ddot x+\gamma\dot x+\omega^2x&=0\\
+    x &= A\exp(\left(\sqrt{\frac{\gamma^2}{4}-\omega_0^2}-\frac{\gamma}{2}\right)t) + B\exp(-\left(\sqrt{\frac{\gamma^2}{4}-\omega_0^2}-\frac{\gamma}{2}\right)t)
+\end{align}
+
+For $\omega_0^2\neq\frac{\gamma^2}{4}$.
+
+Critical damping gives the minimum time for the system to return to equilibrium when $\omega_0^2\neq\frac{\gamma^2}{4}$.
+\begin{align}
+    x=(Ax+B)\exp(-\omega_0 t)
+\end{align}
+
+\begin{example}
+    A mass $m=3$ is attached to a spring with a value of $k=600$
+    \begin{enumerate}
+        \item Determine the value of the damping constant $b$ that would produce critical damping.
+        \item Determine the value of damping constant $b$ that would decrease the angular frequency by 10\%/
+        \item A mass recieve an impulse that ives it a initial velocity $v=2$. What is the maximum resultant displacement and the time when it occurs.
+    \end{enumerate}
+\end{example}
+\begin{sol}
+    \begin{enumerate}
+        \item \begin{align}
+            \omega_0=\frac{\gamma}{2}
+        \end{align}
+
+        \begin{align}
+            x &= (A+Bt)\exp(-\frac{\gamma t}{2})\\
+            \dot x&= \exp(-\frac{\gamma t}{2})\left(B-\frac{\gamma Bt}{2}-A\frac{\gamma}{2}\right)\\
+        \end{align}
+        $x(0)=0, \dot x(0)=v_i$
+        \begin{align}
+            x &=v_i t\exp(-\frac{\gamma t}{2})\\
+            \dot x &= v_i\exp(-\frac{\gamma t}{2})\left(1-\frac{\gamma t}{2}\right) = 0\\
+            t &= \frac{2}{\gamma}=\frac{2m}{b}\\
+            x\left(\frac{2}{\gamma}\right)&=v_it\exp(-\frac{\gamma t}{2})=\frac{2v_i}{\gamma e}
+        \end{align}
+    \end{enumerate}
+\end{sol}
+
+\subsection{Energy}
+For underdamped oscillator, assume $\omega\approx\omega_0$.
+\begin{align}
+    E&=T+U=\frac{1}{2}mv^2+\frac{1}{2}kx^2\\
+    x&=A_0\exp((i\omega_0-\frac{\gamma}{2})t)\\
+    \dot x&=-A_0\exp(t\left(i\omega_0-\frac{\gamma}{2}\right))=A_0\left(i\omega_0-\frac{\gamma}{2}\right)\exp(t\left(i\omega_0-\frac{\gamma}{2}\right))\\
+    E&=\frac{1}{2}kA_0^2\exp(-\gamma t)\\
+\end{align}
+
+The rate of change of energy is 
+\begin{align}
+    \dot E=\frac{\dd}{\dd t}\left(\frac{1}{2}mv^2+\frac{1}{2}kx^2\right)=\dot x(m\ddot x+k\dot x)
+\end{align}
+Recall $m\ddot x=-kx-b\dot x$
+\begin{align}
+    \dot E=-b\dot x^2=-\gamma E 
+\end{align}
+
+\begin{example}
+    The energy of a simple harmonic oscillator is ovserved to reduce by a factor of two after 10 complete cycles.
+    \begin{enumerate}
+        \item How amny cycles will it take to reduce it by a factor of 8?
+        \item By what factor would it be reduced after 100 cycles?
+    \end{enumerate}
+\end{example}
+\begin{sol}
+    \begin{enumerate}
+        \item \begin{align}
+            \frac{E}{E_0}&=e^{-\gamma t}\\
+            \frac{1}{2}&=e^{-\gamma 10 T}\\
+            \left(\frac{1}{2}\right)^3&=\left(e^{-\gamma 10 T}\right)^3=e^{-\gamma 30 T}
+        \end{align}
+    \end{enumerate}
+\end{sol}
+
 \end{document}

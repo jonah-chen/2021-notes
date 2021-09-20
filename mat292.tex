@@ -163,5 +163,52 @@
     At the equilibrium at $y=\frac{\pi}{2}$, In the phase diagram, anything below or above it s
 \end{sol}
 
-
+\section{Linear Equations: Method of Integrating Factors}
+\begin{itemize}
+    \item No general method for finding analytic solutions to first order differential equations.
+    \item There exist classes of equations for which we know a corresponding solution method.
+\end{itemize}
+\begin{definition}
+    Standard form for a first order linear differential equation:
+    \begin{equation}
+        \derivative{y}{t}=p(t)y=g(t)
+    \end{equation}
+\end{definition}
+\begin{itemize}
+    \item For newton's law of cooling, the standard form is 
+    \begin{equation}
+        \derivative{u}{t}+ku=kT_0
+    \end{equation}
+\end{itemize}
+\begin{derivation}
+    \begin{align}
+        \derivative{y}{t}-p(t)y&=g(t)\\
+        \mu(t)\derivative{y}{t}-\mu(t)p(t)y&=\mu(t)g(t)\\
+        \mu(t)p(t)&=\mu'(t)\\
+        p(t)&=\frac{\mu'(t)}{\mu(t)}=\derivative{}{t}\log(\mu(t))\\
+        \mu(t)&=\exp(\int p(t)\dd t)\\
+        \derivative{}{t}\left(\mu(t)y(t)\right)&=\mu(t)g(t)\\
+        \mu(t)y(t)&=\int\mu(t')g(t')\dd t'\\
+        y(t)&=\frac{\int\mu(t')g(t')\dd t'+C}{\mu(t)}
+    \end{align}
+    Note that the $C$ is in the numerator and \textbf{must} be divided by $\mu(t)$.
+\end{derivation}
+\begin{example}
+    \begin{align}
+        \derivative{u}{t}&=-k(u-T_0-A\sin(\omega t))
+    \end{align}
+    In standard form,
+    \begin{align}
+        \derivative{u}{t}+ku&=kT_0+kA\sin(\omega t)
+    \end{align}
+    Calculate the integrating factor
+    \begin{align}
+        \mu(t)&=\exp(\int k\dd t)=\exp(kt)
+    \end{align}
+    Calculate the general solution
+    \begin{align}
+        y&=\exp(-kt)\int\exp(kt')k(T_0+A\sin(\omega t'))\dd t\\
+        &=T_0+\frac{kA}{k^2+\omega^2}\left(k\sin(\omega t)-\omega\cos(\omega t)\right)+C\exp(-kt)
+    \end{align}
+\end{example}
 \end{document}

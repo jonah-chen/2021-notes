@@ -13,6 +13,7 @@
 \usepackage{pgf,tikz,pgfplots}
 \usepackage{mathrsfs}
 \usepackage{textcomp}
+\usepackage{circuitikz}
 \usetikzlibrary{arrows}
 \numberwithin{equation}{section}
 \pgfplotsset{compat=1.16}
@@ -51,4 +52,44 @@
     \item Each step of computation has three inputs and two outputs. 
 \end{itemize}
 
+\section{Primative logic gates}
+\begin{tabular}{|c c|c|c|c|c|}
+    $x$ & $y$ & $x+y$ & $xy$ & $\overline{x}$ & $\overline{y}$\\
+    \hline
+    0 & 0 & 0 & 0 & 1 & 1\\
+    0 & 1 & 1 & 0 & 1 & 0\\
+    1 & 0 & 1 & 0 & 0 & 1\\
+    1 & 1 & 1 & 1 & 0 & 0
+\end{tabular}
+\begin{tikzpicture}
+    \begin{circuitikz}
+        \node[npn]{};
+    \end{circuitikz}
+\end{tikzpicture}
+
+\begin{example}
+    Say $X$ is a 3-bit number, with bits $x_2x_1x_0$. Design a circuit with $X$ as input and one output $f$. $f$ should be 1 if $X\geq 5$, otherwise $f$ should be 0.
+
+    \begin{tabular}{c|c c c|c}
+        & $x_2$ & $x_1$ & $x_0$ & $f$\\
+        \hline
+        0 & 0 & 0 & 0 & 0\\
+        1 & 0 & 0 & 1 & 0\\
+        2 & 0 & 1 & 0 & 0\\
+        3 & 0 & 1 & 1 & 0\\
+        4 & 1 & 0 & 0 & 0\\
+        5 & 1 & 0 & 1 & 1\\
+        6 & 1 & 1 & 0 & 1\\
+        7 & 1 & 1 & 1 & 1
+    \end{tabular}
+
+    $f=x_2(x_1+x_0)$
+    
+\end{example}
+
+\begin{itemize}
+    \item Equation
+    \item 
+    \item Timing Diagram
+\end{itemize}
 \end{document}

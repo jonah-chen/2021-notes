@@ -239,10 +239,78 @@ End of the review.
     \item $\R^n=\R\times\R\times\dots\times\R=\{(x_1,\dots,x_n):x_i\in\R\}$.
 \end{itemize}
 \begin{definition}
-    $A\subset\R^n$ is called an open set if $\forall a\in A\exists$ an open rectangle $R: x\in R\subset A$
+    \begin{itemize}
+        \item $A\subset\R^n$ is called an open set if $\forall a\in A\exists$ an open rectangle $R: x\in R\subset A$.
+        \item $A\subset\R^n$ is called an open set if $\forall a\in A\exists$ an open ball $B: x\in B\subset A$. An open ball $B=B_r(x_0)=\{y\in\R^n:|x_0-y|<r\}$ Note an open ball can be defined with any norm.
+    \end{itemize}
 \end{definition}
 
-Clopen Sets:
+\begin{theorem}
+    Defining ``open'' using rectangles is equivalent to define ``open'' using balls.
+    \begin{prooof}
+        $\implies$ Every open rectangle is open using the ball definition.
+        
+        $\impliedby$ Every open ball is open using the rectangle definition.
+    \end{prooof}
+\end{theorem}
+
+\begin{definition}
+    A set $B$ is ``closed'' if $\R^n \ B=B^C$ is open. 
+\end{definition}
+
+\begin{proposition}[\textbf{De-Morgan's Laws}]
+   
+    If $Y_\alpha$ is any collection of subsets of some universe $U$,
+    \begin{align}
+        \left(\bigcup Y_\alpha\right)^C&=\bigcap Y_\alpha^C\\
+        \left(\bigcap Y_\alpha\right)^C&=\bigcup Y_\alpha^C
+    \end{align}
+\end{proposition}
+\begin{theorem}
+    \begin{enumerate}
+        \item $\emptyset,\R^n$ are clopen.
+        \item Any union of open sets is open. Any intersection of closed sets is closed.
+        \item A finite intersection of open sets is open. A finite union of closed sets is closed.
+    \end{enumerate}
+    \begin{prooof}
+        \begin{enumerate}
+            \item $\R^n$ is open. $x\in\prod(x_i-1,x_i+1)\subset\R^n$. $\implies\emptyset$ is closed. The empty set has no points, thus the condition holds. ``Every horse in an empty set of horses has horns.'' $\implies\R^n$ is closed.
+            \item Suppose $\{A_\alpha\}_{\alpha\in I}$, where $I$ is an arbiturary indexing set, is a collection of open sets.
+            \begin{equation}
+                A=\bigcup_{\alpha\in I}A_{\alpha}=\{x:\exists\alpha\in I\:\:x\in A_\alpha\}
+            \end{equation}
+
+            Let $x\in A$, find $\alpha$ such that $s\in A_\alpha$. Find an open rectangle $R$ such that $x\in R\subset A_\alpha\subset A$
+
+            Suppose $\{B_\alpha\}_{\alpha\in I}$ is a collection of closed sets, show $\cap B_\alpha$ is closed.
+            $\left(\bigcap B_\alpha\right)^C=\bigcup B_\alpha^C$ is open $\implies\bigcap B_\alpha^C$ is closed.
+            \item \begin{lemma}
+                The intersection of two open rectangles, if non-empty, is an open rectangle.
+            \end{lemma}
+            Suppose $A_1$ and $A_2$ are open. Pick $x\in A_1\cap A_2$. By openness of $A_1$, $x\in A_1\implies\exists R_1: x\in\R_1\subset A_1$. Similarly, by openness of $A_2$, $x\in A_2\implies\exists R_2: x\in\R_2\subset A_2$. Then, $x\in R_1\cap R_2\equiv R\subset A_1\cap A_2$.
+
+            Suppose $A_i$, $i=1,\dots,n$ are open.
+            \begin{equation}
+                \bigcap_{i=1}^n A_i=\left(\bigcap_{i=1}^{n-1}A_i\right)\bigcap A_n
+            \end{equation}
+            By induction hypothesis, $\left(\bigcap_{i=1}^{n-1}A_i\right)$ is an open set. The intersection of two open sets are open $\implies$ the intersection of $n$ open sets are open.
+
+            Suppose $B_i$, $i=1,\dots,n$ is closed,
+            \begin{equation}
+                \left(\bigcup_{i=1}^nB_i\right)^C=\bigcup_{i=1}^nB_i^C
+            \end{equation}        
+        \end{enumerate}
+    \end{prooof}
+\end{theorem}
+\begin{itemize}
+    \item Consider the following example,
+    \begin{equation}
+        \bigcap_{n>0}\left(-\frac{1}{n},1+\frac{1}{n}\right)=[0,1]
+    \end{equation}
+    This infinite intersection of open sets is not an open set due to the pointS $0$ and $1$.
+\end{itemize}
+{
+    Clopen Sets:
 Suppose $A\subset\R^n$ is clopen $\implies$ $A^C$ is clopen. Suppose neither is empty. 
 
 Consider the line segment $l_{xy}(t)=ty+(1-t)x$.
@@ -257,5 +325,8 @@ if $z\in A$, the rectangele containing $z\cap l_{xy}$ includes $l(t_0+\epsilon)\
 Similarly if $z\in A^C\implies$ one of $A$ and $A^C$ is not clopen so the other one isn't clopen either. 
 
 Thus, the only clopen sets is $\emptyset$ and $\R^n$
+
+}
+
 
 \end{document}
