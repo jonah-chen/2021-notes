@@ -1,5 +1,5 @@
 \documentclass[a4paper]{article}
-\title{MAT257---Analysis}
+\title{MAT257---Analysis 2}
 \author{Jonah Chen}
 
 \usepackage[utf8]{inputenc}
@@ -16,11 +16,13 @@
 \usetikzlibrary{arrows}
 \numberwithin{equation}{section}
 \pgfplotsset{compat=1.16}
+\everymath{\displaystyle}
 
 \newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
 
 \begin{document}
-
+\sffamily
 \maketitle
 \tableofcontents
 \section{Course Overview}
@@ -104,7 +106,7 @@ In this class, the distinction is not very important.
         \end{equation}
     \end{enumerate}
 
-    \begin{prooof}
+    \begin{proof}
         \begin{enumerate}
             \item $|x|=\sqrt{\sum x_i^2}$
             $|x|=0\implies\sum x_i^2=0\implies\forall i, x_i^2=0\implies \forall i,x_i=0\implies x=0$
@@ -138,7 +140,7 @@ In this class, the distinction is not very important.
             \item The proof is trivial because you can expand the right hand side.
             \\\textbf{Note:} The inner product and the norm are not independent. If you know how to compute one, you can compute the other.
         \end{enumerate}
-    \end{prooof}
+    \end{proof}
 \end{proposition}
 \subsection{Distance Functions}
 \begin{definition}
@@ -155,7 +157,7 @@ In this class, the distinction is not very important.
     \end{enumerate}
     The significance of this theorem is that this is all we need to know about distances to comment on continuity.\\
     \textbf{Aside:} Later, this theorem will become a definition for a distance function or a metric.
-    \begin{prooof}
+    \begin{proof}
         \begin{enumerate}
             \item \begin{align}
                 d(x,y)=|x-y|=|-(y-x)|=|-1||y-x|=|y-x|=d(y,x)
@@ -168,7 +170,7 @@ In this class, the distinction is not very important.
             \end{align}
             This is true by the previous triangle inequality, $|p|+|q|\geq|p+q|$. Letting $p=x-y,q=y-z\implies p+q=x-z$.
         \end{enumerate}
-    \end{prooof}
+    \end{proof}
 
     There are other norms and distance functions that we will rarely use.
 
@@ -247,11 +249,11 @@ End of the review.
 
 \begin{theorem}
     Defining ``open'' using rectangles is equivalent to define ``open'' using balls.
-    \begin{prooof}
+    \begin{proof}
         $\implies$ Every open rectangle is open using the ball definition.
         
         $\impliedby$ Every open ball is open using the rectangle definition.
-    \end{prooof}
+    \end{proof}
 \end{theorem}
 
 \begin{definition}
@@ -272,7 +274,7 @@ End of the review.
         \item Any union of open sets is open. Any intersection of closed sets is closed.
         \item A finite intersection of open sets is open. A finite union of closed sets is closed.
     \end{enumerate}
-    \begin{prooof}
+    \begin{proof}
         \begin{enumerate}
             \item $\R^n$ is open. $x\in\prod(x_i-1,x_i+1)\subset\R^n$. $\implies\emptyset$ is closed. The empty set has no points, thus the condition holds. ``Every horse in an empty set of horses has horns.'' $\implies\R^n$ is closed.
             \item Suppose $\{A_\alpha\}_{\alpha\in I}$, where $I$ is an arbiturary indexing set, is a collection of open sets.
@@ -300,33 +302,103 @@ End of the review.
                 \left(\bigcup_{i=1}^nB_i\right)^C=\bigcup_{i=1}^nB_i^C
             \end{equation}        
         \end{enumerate}
-    \end{prooof}
+    \end{proof}
 \end{theorem}
+\begin{definition}
+Clopen Sets:
+    Suppose $A\subset\R^n$ is clopen $\implies$ $A^C$ is clopen. Suppose neither is empty. 
+
+    Consider the line segment $l_{xy}(t)=ty+(1-t)x$.
+    \begin{align}
+        l_{xy}(0)&=x\in A\\
+        l_{xy}(1)&=y\in A^C\\
+        t_0&=\sup_{t\in[0,1]}\{l_{xy}(t)\in A\}\\
+        l_{xy}(t_0)&=z
+    \end{align}
+    if $z\in A$, the rectangele containing $z\cap l_{xy}$ includes $l(t_0+\epsilon)\in A^C$ for some $\epsilon$.
+
+    Similarly if $z\in A^C\implies$ one of $A$ and $A^C$ is not clopen so the other one isn't clopen either. 
+
+    Thus, the only clopen sets is $\emptyset$ and $\R^n$
+\end{definition}
 \begin{itemize}
     \item Consider the following example,
     \begin{equation}
         \bigcap_{n>0}\left(-\frac{1}{n},1+\frac{1}{n}\right)=[0,1]
     \end{equation}
-    This infinite intersection of open sets is not an open set due to the pointS $0$ and $1$.
+    This infinite intersection of open sets is not an open set due to the points $0$ and $1$.
 \end{itemize}
-{
-    Clopen Sets:
-Suppose $A\subset\R^n$ is clopen $\implies$ $A^C$ is clopen. Suppose neither is empty. 
+\begin{definition}
+    Given $A\subset\R^n$ and $x\in\R^n$, there is a tricotomy (\textbf{exactly} one of the following is true)
+    \begin{enumerate}
+        \item $x$ belongs to the \textit{interior} of $A$: $\exists$ open rectangle $R$ such that $x\in R\subset A$.
+        \item $x$ belongs to the \textit{exterior} of $A$: $\exists$ open rectangle $R$ such that $x\in R\subset A^C$.
+        \item $x$ belongs to the \textit{boundary} or $A$: Every open rectangle $R$ such that $x\in R$ has $R\cap A^C\neq\emptyset$ AND $R\cap A\neq\emptyset$.
+    \end{enumerate}
+    \begin{itemize}
+        \item The closure of $A$ is the complement of the exterior. $\overline{A} = (\mathrm{ext} A)^C$. It will satisfy either condition 1 or 3.
+        \item \textbf{Claims: } 
+        \begin{enumerate}
+            \item $\overline A\ni x$ iff. every open rectangle $R\ni x$ satisfies $R\cap A\neq\emptyset$.
+            \item $\mathrm{int} A\cup\mathrm{ext} A\cup \mathrm{Bd} A=\R^n$
+            \item $\mathrm{cl} = A\cup\mathrm{Bd} A$
+            \item $\mathrm{int} A=A\setminus \mathrm{Bd}A$
+        \end{enumerate}
+    \end{itemize}
+\end{definition}
+\begin{example}
+    $A=[0,1)\subset \R$
+    \begin{itemize}
+        \item $\mathrm{int} A=(0,1)$
+        \item $\mathrm{ext} A=(-\infty,0)\cup(1,\infty)$
+        \item $\mathrm{Bd} A= \{0,1\}$
+        \item $\mathrm{cl} A=[0,1]$
+    \end{itemize}
+\end{example}
+\section{Compactness}
+\begin{definition}
+    An \textbf{open cover} of a set $A$ is a collection $\{U_\alpha\}$ of open sets in $\R^n$ such that 
+    \begin{equation}
+        \bigcup_{\alpha\in I}U_\alpha\supset A
+    \end{equation}
 
-Consider the line segment $l_{xy}(t)=ty+(1-t)x$.
-\begin{align}
-    l_{xy}(0)&=x\in A\\
-    l_{xy}(1)&=y\in A^C\\
-    t_0&=\sup_{t\in[0,1]}\{l_{xy}(t)\in A\}\\
-    l_{xy}(t_0)&=z
-\end{align}
-if $z\in A$, the rectangele containing $z\cap l_{xy}$ includes $l(t_0+\epsilon)\in A^C$ for some $\epsilon$.
+    A \textbf{subcover} of $\{U_\alpha\}_{\alpha\in I}$ is a collection $\{U_\alpha\}_{\alpha\in I'}$ where $I'\subset I$ such that 
+    \begin{equation}
+        \bigcup_{\alpha\in I'}U_\alpha\supset A
+    \end{equation}
+\end{definition}
+\begin{definition}
+    A set $A$ is called \textbf{compact} if \textbf{EVERY} open cover of $A$ has a finite sub-cover.
+    \begin{itemize}
+        \item Note: Showing one finite open cover with a finite subcover is not sufficient.
+    \end{itemize}
+    Examples:
+    \begin{enumerate}
+        \item If $F\subset\R^n$ is finite, then it is compact.
+        \item $\R$ is not compact. Take $\R=\bigcup_{n\in\Z}(n-1,n+1)=\bigcup_{n\in\Z}(-n,n)$. These open covers does not have a finite subcover.
+    \end{enumerate}
+\end{definition}
 
-Similarly if $z\in A^C\implies$ one of $A$ and $A^C$ is not clopen so the other one isn't clopen either. 
-
-Thus, the only clopen sets is $\emptyset$ and $\R^n$
-
-}
+\subsection{Finding all compact subsets of $\R^n$}
+\begin{theorem}[Heine-Borel]
+    $[0,1]$ is compact.
+    \begin{proof}
+        Let $\{U_\alpha\}_{\alpha\in J}$ be an open cover of $I=[0,1]$. We will first show there's a subcover from 0 to $g>0$
+        \vspace{10pt}
+        Define $G=\{g\in[0,1]: \exists J'\subset J\}$ such that $J'$ is a finite subcover of $[0,g]$. 
+        \vspace{10pt}
+        To show $1\in G$ will prove the theorem.
+        \vspace{10pt}
+        Set $\gamma=\sup G$. For $G$ to have a supremum, it must be bounded ($G\in[0,1]$) and non-empty ($0\in G$). 
+        \vspace{10pt}
+        Claim: $\gamma=1$. Suppose $\gamma<1$, as $\gamma\in I$, $\exists\beta\in J$ such that $\gamma\in U_\beta$.
+        \vspace{10pt}
+        As $U_\beta$ is open, $\exists (g',g''): \gamma\in(g',g'')\subset[g',g'']\subset U_\beta$.
+        \vspace{10pt}
+        $[0,g'']=[0,g']\cup[g',g'']$.
+        As $g'<\gamma$, $[0,g']$ has a finite subcover. $[g',g'']$ is covered by a single set $U_\beta$. Thus, $g''\in G$ and this is a contradiction.
+    \end{proof}
+\end{theorem}
 
 
 \end{document}

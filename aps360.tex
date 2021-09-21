@@ -1,0 +1,182 @@
+\documentclass[a4paper]{article}
+\title{APS360---Intro to Machine Learning}
+\author{Jonah Chen}
+
+\usepackage[utf8]{inputenc}
+\usepackage[margin=0.5in]{geometry}
+
+\usepackage{braket}
+\usepackage{physoly}
+\usepackage{currfile}
+\usepackage{gensymb}
+\usepackage{amssymb}
+\usepackage{pgf,tikz,pgfplots}
+\usepackage{mathrsfs}
+\usepackage{textcomp}
+\usepackage{listings}
+\usetikzlibrary{arrows}
+\numberwithin{equation}{section}
+\pgfplotsset{compat=1.16}
+\everymath{\displaystyle}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\begin{document}
+\sffamily
+\maketitle
+\tableofcontents
+
+\section{Data Splits}
+Attempt to split the data in a way that is representative to the real purpose of your model.
+\begin{itemize}
+    \item Training Data: Optimizing model parameters.
+    \item Validation Data: Optimizing hyperparameters.
+    \item Test Data: Final ``real world'' testing.
+\end{itemize}
+
+\section{Artificial Neural Networks}
+Conventially, an artificial neuron consists of 
+\begin{itemize}
+    \item $\mathbf{x}$ is an input vector
+    \item $\mathbf{w}$ is a weight vector
+    \item $b$ is a bias scalar
+    \item $f$ is the activation function
+    \item $y$ is the output (scalar)
+\end{itemize}
+
+\subsection{Activation Functions}
+\begin{itemize}
+    \item A common activation function is the \textit{sigmoid} function:
+    \begin{equation}
+        \sigma(x)=\frac{1}{1+e^{-x}}
+    \end{equation}
+    \begin{center}
+        \begin{tikzpicture}
+            \begin{axis}
+                \addplot [
+                    domain=-4:4,
+                    samples=200,
+                    color=blue,
+                    ]
+                    {1/(1+exp(-x))};
+            \end{axis} 
+        \end{tikzpicture}
+    \end{center}
+    \item The first artificial neurons uses a step function. This models more accurately the biological neuron but staganates progress since the function is not differentiable.
+    \begin{center}
+        \begin{tikzpicture}
+            \begin{axis}
+                \addplot [
+                domain=-4:0,
+                samples=70,
+                color=blue,
+                ]
+                {0};
+                \addplot [
+                domain=0:4,
+                samples=70,
+                color=blue,
+                ]
+                {1};
+            \end{axis}
+        \end{tikzpicture}
+    \end{center}
+    \item Another activation function is the \textit{tanh} function, which has similar behavior to the sigmoid but ranges from $(-1,1)$.
+    \item The sigmoid and tanh activation fucntions have vanishing gradients as $x\to\pm\infty$. To solve this, we use the \textit{Rectified Linear Unit}(ReLU) activation function
+    \begin{equation}
+        f(x) = \max(0,x)
+    \end{equation}
+    with very easy derivative $f'(x) = x>0 ? 1 : 0$
+    \begin{center}
+        \begin{tikzpicture}
+            \begin{axis}
+                \addplot [
+                domain=-4:0,
+                samples=70,
+                color=blue,
+                ]
+                {0};
+                \addplot [
+                domain=0:4,
+                samples=70,
+                color=blue,
+                ]
+                {x};
+            \end{axis}
+        \end{tikzpicture}
+    \end{center}
+\end{itemize}
+\subsection{Loss Functions}
+In \textit{maximum likelihood estimations}, the mean square error comes from a gaussian distribution whereas cross entropy correlates from a beronulli distribution.
+\begin{itemize}
+    \item The mean square error, useful for \textbf{regression problems}.
+    \begin{equation}
+        C = \frac{1}{N}|\mathbf{y-t}|^2
+    \end{equation}
+    \item The cross entropy loss, useful for \textbf{classification problems}.
+    \begin{equation}
+        C = -\frac{1}{N}\sum_{n=1}^N\sum_{k=1}^Kt_{n,k}\log(y_{n,k})
+    \end{equation}
+\end{itemize}
+\subsection{Training}
+\begin{itemize}
+    \item Given the ground truth, We can use a loss function to evaluate the model.
+    \item Firstly we start with the forward pass:
+    \begin{lstlisting}[language=Python]
+import math
+
+#data
+x = [[1,...]]
+t = [0,0,0,1]
+w = [1,-1,1]
+def simple_ann(x, w, t):
+    y = []
+    for n in range(len(x)):
+        v = 0
+        for p in range(len(x[0])):
+            v = v + x[n][p]*w[p]
+        y.append(1 / (1+math.exp(-v)))
+    return y
+    \end{lstlisting}
+    \item We can represent a neural network as layers of multiple neurons. Where each neuron's weight vector is a \textbf{row} of the weight matrix $\mathbf{W}$ and the input is a column vector $\mathbf{x}$.
+    \begin{align}
+        \mathbf{y} = f(\mathbf{Wx}+\mathbf{b})
+    \end{align}
+    \item We will take the gradient of the loss function with respect to the weights. The gradient gives the direction of greatest ascent. To minimize the loss, we will change adjust the weights to the opposite direction of the gradient.
+    \begin{equation}
+        w_{ji}^{t+1}=w_{ji}^t-\gamma\partialderivative{E}{w_{ji}}
+    \end{equation}
+    where $\gamma$ is the learning rate.
+    \item Learning rate is a hyperparameter that you can tune. Low learning rate causes the model to be stuck at a local minimum or saddle point. High learning rate will cause the gradient to explode.
+    \item Since neural networks are very high-dimensional, it is very uncommon to have a convex local minimum. Saddle points are far more common.
+    \begin{lstlisting}[language=Python]
+learning = 10
+def simple_ann(x,w,t,iterations,learning):
+    E = [] #error
+    for ii in range(iterations):
+        err,y = [],[]
+        for n in range(len(x)):
+            v = 0
+            for p in range(len(x[0])):
+                v = v + x[n][p]*w[p]
+            y.append(1 / (1 + math.exp(-v)))
+            err.append((y[n]-t[n])**2)
+
+            #gradient descent to compute new weights
+            for p in range(len(w)):
+                d = x[n][p]*(y[n]-t[n])*(1-y[n])*(y[n])
+                w[p] = w[p] - learning*d
+        E.append(2*sum(err)/len(x))
+    return (y,w,E)
+    \end{lstlisting}
+    \item A single neuron (or layer) can solve all problems that are linearly seperable. A neural network with one hidden layer can fit any functions (\textit{Universal Approximation Theorem}).
+    \item Credit Assignment Problem: Naively computing gradients require exponential computation. This can be solved by dynamic programming, where complexity grows \textbf{linearly} with depth, and \textbf{quadratically} with the width.    
+\end{itemize}
+
+
+
+
+
+
+\end{document}

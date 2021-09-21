@@ -18,6 +18,7 @@
 \usetikzlibrary{arrows}
 \numberwithin{equation}{section}
 \pgfplotsset{compat=1.16}
+\everymath{\displaystyle}
 \begin{document}
 
 \maketitle
@@ -144,9 +145,6 @@
     When a resistor is connected, energy is lost as heat and the circuit behaves like a damped oscilator.
 \end{itemize}
 
-\begin{example}
-    
-\end{example}
 \section{Damped Oscillations}
 
 The damped oscillator involves the addition to the drag force that is proportional to $-v$ to the simple harmonic oscillator.
@@ -227,4 +225,79 @@ Recall $m\ddot x=-kx-b\dot x$
     \end{enumerate}
 \end{sol}
 
+\subsection{Quality Factor}
+
+\begin{definition}
+    The \textbf{quality factor} is a convenient measurement on how good an oscillator is (how many oscillations it can make before its amplitude would decrease by a certain rate) is defined as 
+    \begin{equation}
+        Q=\frac{\omega_0}{\gamma}=\frac{\sqrt{km}}{b}
+    \end{equation}
+    where $\gamma=2\beta=\frac{b}{m}$.
+\end{definition}
+\begin{itemize}
+    \item If $Q=\frac{1}{2}$, the system is critically damped.
+    \item Energy $E=E_0\exp(-\gamma t)$.
+    \item At two different times $t_1$ and $t_2$ seperated by period $T$, 
+    \begin{align}
+        \frac{E(t+T)}{E(t)}=\exp(-\gamma T)
+    \end{align}
+    Which leads to
+    \begin{align}
+        \frac{E(t)-E(t+T)}{E(t_1)}=1-e^{-\gamma T}\approx -\gamma T\approx\frac{2\pi\gamma}{\omega}=\frac{2\pi}{Q}
+    \end{align}
+    Thus,
+    \begin{align}
+        Q=\frac{\text{Energy stored in the oscillator}}{\text{Energy dissipated per radian}}
+    \end{align}
+    \item We can rewrite the equation of the damped oscillator
+    \begin{align}
+        \ddot x+\gamma\dot x+\omega_0^2 x&=0\\
+        \ddot x+\frac{\omega_0}{Q}\dot x+\omega_0^2 x&=0
+    \end{align}
+    As $\displaystyle{\gamma=\frac{\omega_0}{Q}, \omega=\omega_0\sqrt{1-\frac{1}{4Q^2}}}$.
+    \begin{center}
+        \begin{tikzpicture}
+            \begin{axis}
+                \addplot [
+                    domain=0:10,
+                    samples=200,
+                    color=blue,
+                    ]
+                    {sqrt(1-0.25*x^(-2))};                
+            \end{axis}
+        \end{tikzpicture}
+    \end{center}
+\end{itemize}
+\begin{example}
+    WHen an electron in $H$ is moved from $n=2$ to $n=3$ states, the atom behaves like a damped oscillator when the lights of frequency \SI{4.57e+14}{\hertz} is emmited. The lifetime of the excited atom is approximately \SI{10}{\nano\second}. What is the value of the quality factor?
+\end{example}
+\begin{sol}
+    As $\gamma=\frac{1}{\tau}, \omega_0=2\pi f$, 
+    \begin{equation}
+        Q=\frac{\omega_0}{\gamma}=2\pi f\tau=\SI{2.87e+7}{}
+    \end{equation}
+\end{sol}
+\begin{itemize}
+    \item RLC circuit:
+    \begin{align}
+        RI+L\dot I+\frac{q}{C}&=0\\
+        L\ddot q+R\dot q+\frac{q}{C}&=0\\
+        \ddot q+\frac{R}{L}\dot q+\frac{1}{LC}q&=0
+    \end{align}
+\end{itemize}
+\section{Driven Oscillations}
+In the undamped case,
+\begin{align}
+    m\ddot x+kx&=F_0e^{i\omega t}\\
+    m\ddot x+kx&=ka e^{i\omega t}\\
+\end{align}
+The particular solution is 
+\begin{align}
+    x=A(\omega)e^{i(\omega t-\delta)}
+\end{align} 
+where
+\begin{itemize}
+    \item $\tan\delta=0$ and $A(\omega)=\frac{a}{1-(\omega/\omega_0)^2}$ when $\omega<\omega_0$
+    \item $\tan\delta=\pi$ and $A(\omega)=-\frac{a}{1-(\omega/\omega_0)^2}$ when $\omega>\omega_0$
+\end{itemize}
 \end{document}
