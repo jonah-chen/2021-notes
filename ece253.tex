@@ -1,9 +1,9 @@
 \documentclass[a4paper, 10pt]{article}
-\title{ECE253---a}
+\title{ECE253---Digital Systems}
 \author{Jonah Chen}
 
 \usepackage[utf8]{inputenc}
-\usepackage[margin=0.5in]{geometry}
+\usepackage[ma rgin=0.5in]{geometry}
 
 \usepackage{braket}
 \usepackage{physoly}
@@ -18,7 +18,7 @@
 \numberwithin{equation}{section}
 \pgfplotsset{compat=1.16}
 \begin{document}
-
+\sffamily
 \maketitle
 \tableofcontents
 
@@ -53,14 +53,16 @@
 \end{itemize}
 
 \section{Primative logic gates}
-\begin{tabular}{|c c|c|c|c|c|}
-    $x$ & $y$ & $x+y$ & $xy$ & $\overline{x}$ & $\overline{y}$\\
-    \hline
-    0 & 0 & 0 & 0 & 1 & 1\\
-    0 & 1 & 1 & 0 & 1 & 0\\
-    1 & 0 & 1 & 0 & 0 & 1\\
-    1 & 1 & 1 & 1 & 0 & 0
-\end{tabular}
+\begin{center}
+    \begin{tabular}{|c c|c|c|c|c|}
+        $x$ & $y$ & $x+y$ & $xy$ & $\overline{x}$ & $\overline{y}$\\
+        \hline
+        0 & 0 & 0 & 0 & 1 & 1\\
+        0 & 1 & 1 & 0 & 1 & 0\\
+        1 & 0 & 1 & 0 & 0 & 1\\
+        1 & 1 & 1 & 1 & 0 & 0
+    \end{tabular}
+\end{center}
 \begin{tikzpicture}
     \begin{circuitikz}
         \node[npn]{};
@@ -70,18 +72,20 @@
 \begin{example}
     Say $X$ is a 3-bit number, with bits $x_2x_1x_0$. Design a circuit with $X$ as input and one output $f$. $f$ should be 1 if $X\geq 5$, otherwise $f$ should be 0.
 
-    \begin{tabular}{c|c c c|c}
-        & $x_2$ & $x_1$ & $x_0$ & $f$\\
-        \hline
-        0 & 0 & 0 & 0 & 0\\
-        1 & 0 & 0 & 1 & 0\\
-        2 & 0 & 1 & 0 & 0\\
-        3 & 0 & 1 & 1 & 0\\
-        4 & 1 & 0 & 0 & 0\\
-        5 & 1 & 0 & 1 & 1\\
-        6 & 1 & 1 & 0 & 1\\
-        7 & 1 & 1 & 1 & 1
-    \end{tabular}
+    \begin{center}
+        \begin{tabular}{c|c c c|c}
+            & $x_2$ & $x_1$ & $x_0$ & $f$\\
+            \hline
+            0 & 0 & 0 & 0 & 0\\
+            1 & 0 & 0 & 1 & 0\\
+            2 & 0 & 1 & 0 & 0\\
+            3 & 0 & 1 & 1 & 0\\
+            4 & 1 & 0 & 0 & 0\\
+            5 & 1 & 0 & 1 & 1\\
+            6 & 1 & 1 & 0 & 1\\
+            7 & 1 & 1 & 1 & 1
+        \end{tabular}
+    \end{center}
 
     $f=x_2(x_1+x_0)$
     
@@ -92,4 +96,114 @@
     \item 
     \item Timing Diagram
 \end{itemize}
+
+\section{Boolean Algebra}
+\begin{definition}
+    \begin{itemize}
+        \item A literal is a variable or not a variable
+        \item A product term is a term that contains the ``and'' of literals
+        \item A minterm is a product term that contains all the literals. Because there is a minimum set of input combinations (exactly 1 row of truth table) that cause the minterm to be true.
+        \item A maxterm is a sum term that contains all the literals. Because there is a maximum set of input combinations (all but 1 truth table) that cause the maxterm to be true.
+    \end{itemize}
+\end{definition}
+\begin{center}
+    \begin{tabular}{|c c c|c|c|c|c|}
+        $x_2$ & $x_1$ & $x_0$ & minterm & label & maxterm & label\\
+        \hline
+        0 & 0 & 0 & $\overline{x_2}\overline{x_1}\overline{x_0}$ & $m_0$ & $x_2+x_1+x_0$ & $M_0$\\
+        0 & 0 & 1 & $\overline{x_2}\overline{x_1}{x_0}$ & $m_1$ & $x_2+x_1+\overline{x_0}$ & $M_1$\\
+        0 & 1 & 0 \\
+        0 & 1 & 1 \\
+        1 & 0 & 0 \\ 
+        1 & 0 & 1 \\
+        1 & 1 & 0 & $x_2x_1\overline{x_0}$ & $m_6$ & $\overline{x_2}+\overline{x_1}+x_0$ & $M_6$\\
+        1 & 1 & 1 & $x_2x_1x_0$ & $m_7$ & $\overline{x_2}+\overline{x_1}+\overline{x_0}$ & $M_7$
+    \end{tabular}
+\end{center}
+\begin{example}
+    \begin{center}
+        \begin{tabular}{|c c c|c|c|}
+            $x_2$ & $x_1$ & $x_0$ & $f$ & label\\
+            \hline
+            0 & 0 & 0 & 0 & $m_0$\\
+            0 & 0 & 1 & 0 & $m_1$\\
+            0 & 1 & 0 & 1 & $m_2$\\
+            0 & 1 & 1 & 1 & $m_3$\\
+            1 & 0 & 0 & 1 & $m_4$\\
+            1 & 0 & 1 & 0 & $m_5$\\
+            1 & 1 & 0 & 1 & $m_6$\\
+            1 & 1 & 1 & 1 & $m_7$\\
+        \end{tabular}
+    \end{center}
+
+    Canonical SOP form: 
+    \begin{align}
+        f&=\sum m(2,3,5,6,7)\\
+        &=\overline{x_2}x_1\overline{x_0}+\overline{x_2}x_1x_0+x_2\overline{x_1}\overline{x_0}+x_2x_1\overline{x_0}+x_2x_1x_0\\
+        &=\overline{x_2}x_1(\overline{x_0}+x_0)+x_2x_1(\overline{x_0}+x_0)+x_2\overline{x_1}\overline{x_0}\\
+        &=\overline{x_2}x_1+x_2x_1+x_2\overline{x_1}\overline{x_0}\\
+        &=x_1+x_2\overline{x_1}\overline{x_0}\\
+        &=x_1+x_2\overline{x_0}
+    \end{align}
+
+    Canonical POS form:
+    \begin{align}
+        f&=\prod M(0,1,5)\\
+        &=(x_2+x_1+x_0)(x_2+x_1+\overline{x_0})(\overline{x_2}+x_1+\overline{x_0})
+    \end{align}
+
+\end{example}
+\begin{proposition}
+    \begin{equation}
+        a+bc=(a+b)(a+c)
+    \end{equation}
+    \begin{proof}
+        \begin{align}
+            (a+b)(a+c) &= a+ab+ac+bc\\
+            &= a(1+b) + a(1+c) + bc\\
+            &= a+bc
+        \end{align}
+    \end{proof}
+\end{proposition}
+\begin{proposition}[De-Morgan's Law]
+    \begin{align}
+        \overline{ab}&=\overline{a} + \overline{b}\\
+        \overline{(a+b)}&=\overline{a}\overline{b}
+    \end{align}
+    Note this law is the means of translation between ``and'' and ``or''.
+\end{proposition}
+\begin{example}
+    Gumball Factory: three sensors \begin{itemize}
+        \item $s_2$: ball too large
+        \item $s_1$: ball too small
+        \item $s_0$: ball too light
+    \end{itemize}
+    \begin{center}
+        \begin{tikzpicture}
+            \draw (0,0) -- (6,0);
+
+            \draw[fill] (0.5,0.2) circle (0.2);
+            \draw[fill] (1.2,0.2) circle (0.2);
+            \draw[fill] (1.9,0.2) circle (0.2);
+            \draw[fill] (2.6,0.2) circle (0.2);
+            \draw[fill] (3.4,0.2) circle (0.2);
+            \draw[-latex] (4,0.2) -- (5,0.2);
+        \end{tikzpicture}
+    \end{center}
+    Design logic circuit with output one if ball is too large or it's too small and too light.
+\end{example}
+
+\begin{theorem}[Consensus]
+    \begin{equation}
+        xy+\overline{x}z+yz=xy+\overline{x}z
+    \end{equation}
+    \begin{proof}
+        Use the property $1f=f$, $a+\overline{a}=1$.
+        \begin{align}
+            xy+\overline{x}z+yz=xy+\overline{x}z&=xy+\overline{x}z+(x+\overline{x})yz\\
+            &=xy+xyz+\overline{x}z+\overline{x}yz\\
+            &=xy+x\overline{z}
+        \end{align}
+    \end{proof}
+\end{theorem}
 \end{document}
