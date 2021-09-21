@@ -13,11 +13,13 @@
 \usepackage{pgf,tikz,pgfplots}
 \usepackage{mathrsfs}
 \usepackage{textcomp}
+\usepackage{ulem}
 \usetikzlibrary{arrows}
 \numberwithin{equation}{section}
 \pgfplotsset{compat=1.16}
+\everymath{\displaystyle}
 \begin{document}
-
+\sffamily
 \maketitle
 \tableofcontents
 
@@ -211,4 +213,48 @@
         &=T_0+\frac{kA}{k^2+\omega^2}\left(k\sin(\omega t)-\omega\cos(\omega t)\right)+C\exp(-kt)
     \end{align}
 \end{example}
+\section{Existance and Uniqueness of Solutions}
+\begin{itemize}
+    \item Uniqueness is the question if a model can only follow one process or not. 
+    \begin{theorem}[Existance and uniqueness for linear first-order ODEs]
+        Consider the IVP $y'+p(t)y=g(t)$ with initial value $y(t_0)=y_0$ and an interval $I=(\alpha,\beta)$. If 
+        \begin{enumerate}
+            \item $t_0\in I$
+            \item $p(t)$ continuous on $I$
+            \item $g(t)$ continuous on $I$
+        \end{enumerate}
+        Then, 
+        \begin{enumerate}
+            \item This IVP has a solution and this solution is unique. 
+            \item This solution exists for all time $t\in I$. 
+            \item The ODE has a general solution that depends on one free parameter.
+        \end{enumerate}
+        \begin{proof}
+            Integrating factor method constructs the unique solution.
+        \end{proof}
+    \end{theorem}
+    \begin{example}
+        $ty'+2y=4t^2$, $y(1)=2$. As $t\neq 0$, $t'+2\frac{y}{t}=4t$.
+        
+        Pick $I=(0,\infty)$. $p(t),g(t)$ are continous on $I$. Thus, this IVP has a unique solution.
+
+        The general solution is $y=t^2+\frac{C}{t^2}$.
+    \end{example}
+    \begin{theorem}[Picard–Lindelöf theorem]
+        Consider the IVP $y'=f(t,y)$ with initial value $y(t_0)=y_0$. Consider furthermore an open rectangle $R=(\alpha,\beta)\times(\gamma,\delta)$ in the $t-y$ plane. If
+        \begin{enumerate}
+            \item $(t_0,y_0)\in R$
+            \item $f$ is continuous in $R$.
+            \item $\partialderivative{f}{y}$ is continuous in $R$.
+        \end{enumerate}
+        Then the IVP has a unique solution. \sout{The soluton exists for $t\in(\alpha,\beta)$.} The solution exist for some interval $(t_0-h,t_0+h)$ where $(t_0-h,t_0+h)\subset(\alpha,\beta)$.
+        
+        \vspace{10pt}
+        \textbf{Remarks:}
+        \begin{enumerate}
+            \item Non-linear ODEs don't necessarily have a general solution.
+            \item The solution might be implicit. e.g. $\sqrt{y^2+\log y}=5t$
+        \end{enumerate}
+    \end{theorem}
+\end{itemize}
 \end{document}
