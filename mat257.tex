@@ -342,7 +342,9 @@ Clopen Sets:
             \item $\overline A\ni x$ iff. every open rectangle $R\ni x$ satisfies $R\cap A\neq\emptyset$.
             \item $\mathrm{int} A\cup\mathrm{ext} A\cup \mathrm{Bd} A=\R^n$
             \item $\mathrm{cl} = A\cup\mathrm{Bd} A$
-            \item $\mathrm{int} A=A\setminus \mathrm{Bd}A$
+            \item $\mathrm{int} A=A\setminus \mathrm{Bd}A$.
+            \item $\mathrm{int} S$ is the largest open set in $S$, $\mathrm{int} S=\bigcup_{U\subset S}U$
+            \item $\overline{S}$ is the smallest closed set containing $S$, $\overline{S}=\bigcap_{C\supset S}C$.
         \end{enumerate}
     \end{itemize}
 \end{definition}
@@ -381,24 +383,103 @@ Clopen Sets:
 
 \subsection{Finding all compact subsets of $\R^n$}
 \begin{theorem}[Heine-Borel]
-    $[0,1]$ is compact.
+    $[a,b]$ is compact.
     \begin{proof}
-        Let $\{U_\alpha\}_{\alpha\in J}$ be an open cover of $I=[0,1]$. We will first show there's a subcover from 0 to $g>0$
+        Let $\{U_\alpha\}_{\alpha\in J}$ be an open cover of $[a,b]$. We will first show there's a subcover from a to $g>a$.
+
         \vspace{10pt}
-        Define $G=\{g\in[0,1]: \exists J'\subset J\}$ such that $J'$ is a finite subcover of $[0,g]$. 
+        Define $G=\{g\in[a,b]: \exists J'\subset J\}$ such that $J'$ is a finite subcover of $[a,g]$.
+
         \vspace{10pt}
-        To show $1\in G$ will prove the theorem.
+        To show $b\in G$ will prove the theorem. Set $\gamma=\sup G$. For $G$ to have a supremum, it must be bounded ($G\subset[a,b]$) and non-empty ($a\in G$). 
+
         \vspace{10pt}
-        Set $\gamma=\sup G$. For $G$ to have a supremum, it must be bounded ($G\in[0,1]$) and non-empty ($0\in G$). 
-        \vspace{10pt}
-        Claim: $\gamma=1$. Suppose $\gamma<1$, as $\gamma\in I$, $\exists\beta\in J$ such that $\gamma\in U_\beta$.
+        Claim: $\gamma=b$. Suppose $\gamma<b$, as $\gamma\in [a,b]$, $\exists\beta\in J$ such that $\gamma\in U_\beta$.
+
         \vspace{10pt}
         As $U_\beta$ is open, $\exists (g',g''): \gamma\in(g',g'')\subset[g',g'']\subset U_\beta$.
+
         \vspace{10pt}
-        $[0,g'']=[0,g']\cup[g',g'']$.
-        As $g'<\gamma$, $[0,g']$ has a finite subcover. $[g',g'']$ is covered by a single set $U_\beta$. Thus, $g''\in G$ and this is a contradiction.
+        $[a,g'']=[a,g']\cup[g',g'']$.
+
+        As $g'<\gamma$, $[0,g']$ has a finite subcover. $[g',g'']$ is covered by a single set $U_\beta$. Thus, $g''\in G$ and this is a contradiction as $g''>\gamma$.
+
+
+        Next, we show $b=\gamma\in G$. 
+
+        If $b$ is covered by $\{U_\alpha\}_{\alpha\in J}$, hence some interval $(b^-,b^+)$ is covered by one set $U_\alpha$. As $\sup G=b>b^-, \exists g'\in G: b^-<g'<b$.
+        \begin{equation}
+            [a,b]=[a,g']\cup[b^-,b]
+        \end{equation}
     \end{proof}
 \end{theorem}
+\begin{theorem}[]
+    If $A\subset\R^n$ is compact and $b\subset\R^m$ is compact. Then, $A\times B\subset\R^{n+m}$ is compact.
+    \begin{proof}
+        Suppose $U=\{U_{\alpha}\}$ is an open cover of $A\times B$.
+
+        \vspace{10pt}
+        WLOG, each $U_\alpha$ is itself an open rectangle.
+        \vspace{10pt}
+                
+        \begin{lemma}
+            For every $x\in A$, we can find an open set $N_x\ni x: N_x\times B$ can be covered with finitely many of the $U_\alpha$s.
+            \vspace{10pt}
+            
+            \begin{proof}
+                Write $U_\alpha=V_\alpha\times W_\alpha$, where $V_\alpha,W_\alpha$ are open rectangles in $\R^n,\R^m$ respectively.
+                
+                Consider that $\{W_\alpha:x\in V_\alpha\}$ covers $B$ which is compact. So find $\alpha_1,\dots,\alpha_p: \{W_{\alpha_1},\dots,W_{\alpha_p}\}$ cover $B$. So, $\{U_{\alpha_1},\dots,U_{\alpha_p}\}$ cover $\{x\}\times B$.
+                \vspace{10pt}
+                
+                Let $N_x=\bigcap_{i=1}^pV_{\alpha_i}\subset V_{\alpha_i}\subset V_{\alpha_i}\forall i$.
+                \vspace{10pt}
+
+                Now, $N_x\times B\subset\bigcup_{i=1}^pN_x\times W_{\alpha_i}\subset\bigcup_{i=1}^pV_{\alpha_i}\times W_{\alpha_i}=\bigcup_{i=1}^pU_{\alpha_i}$.
+            \end{proof} 
+
+        \end{lemma}
+    \end{proof}
+    Now, $\{N_x\}_{x\in A}$ is an open cover of $A$. By compactness of $A$, find $x_1,\dots,x_q:\bigcup_{j=1}^qN_{x_j}\supset A$. i.e. $\bigcup_{j=1}^qN_{x_j}\times B\supset A\times B$.
+
+    For each $j=1,\dots,q$ find $U_{ji}$ which are rectangles in $U$, $i=1,\dots,p_j:\bigcup_{i=1}^{p_j}U_{ji}\supset N_{x_j}\times B$. 
+    
+    Now, $\bigcup_{j=1}^p\bigcup_{i=1}^{p_j}U_{ji}\supset A\times B$.
+\end{theorem}
+\begin{corollary}
+    Closed rectangles $R=\prod_{i=1}^n[a_i,b_i]$ are compact.
+\end{corollary}
+\begin{proposition}
+    A closed subset of a compact set is compact. 
+\end{proposition}
+\begin{corollary}
+    Every closed and bounded subset of $\R^n$ is compact.
+\end{corollary}
+
+\begin{theorem}
+    Every compact set in $\R^n$ is closed and bounded.
+    \begin{proof}
+        Construct a cover for $S$ with open balls of radius $R$. Given $S$ is compact, it is covered by finitely many elements. Thus, $S$ is bounded.
+        
+        Let $x\in S^C, y\in S$, Let $B_y=B(y,\frac{1}{3}|x-y|),C_y=B(x,\frac{1}{3}|x-y|)$
+    \end{proof}
+\end{theorem}
+
+If $X\subset\R^n$ is compact, 
+\begin{itemize}
+    \item Every open cover has a finite subcover
+    \item Closed and bounded
+    \item Every sequence $(x_n)_n\in X$ has a converging subsequences that converge in $X$.
+\end{itemize}
+
+Continuity:
+\begin{itemize}
+    \item $\epsilon-\delta$
+    \item $f^{-1}(\text{open})$ is open
+    \item If $x_n$ converges to x, then $f(x_n)$ converges to $f(x)$.
+\end{itemize}
+
+
 
 
 \end{document}

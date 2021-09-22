@@ -3,6 +3,7 @@
 \author{Jonah Chen}
 
 \usepackage[utf8]{inputenc}
+\usepackage[margin=0.5in]{geometry}
 
 \usepackage{braket}
 \usepackage{physoly}
@@ -18,6 +19,7 @@
 
 \begin{document}
 
+\sffamily
 \maketitle
 \tableofcontents
 
@@ -49,6 +51,55 @@
         &=\frac{\sqrt 3-1}{2}-\frac{\pi}{12}
     \end{align}
 
+\end{itemize}
+
+\section{Intro to Fluid Flow}
+\subsection{Description of Mechanics}
+\begin{definition}[Lagrangian Description]
+    Describe fluids as a small ``fluid particle'', describe fluids like particles in solid mechanics. i.e. obey euler-lagrange equations.
+    \begin{align}
+        \mathbf{r}(t)&=(x,y,z)\\
+        \mathbf{v}(t)&=(\dot x,\dot y,\dot z)=(u,v,w)
+    \end{align}
+\end{definition}
+\begin{definition}[Eulerian Description]
+    Uses density at each points of the fluid in a flow field.
+    \begin{align}
+        \mathbf v(x,y,z,t)
+    \end{align}
+    More suitible for analysis of a continum.
+\end{definition}
+\subsection{Flow visualization}
+There are three common concepts used in flow visualization
+\begin{itemize}
+    \item Streamlines
+    \begin{itemize}
+        \item A line that is tangent to the local velocity vector at each point at a given instant.
+        \item No flow across a streamline.
+        \item Can use particle image velocimetry(PIV) to find streamlines experimentally.
+        \begin{itemize}
+            \item Streamtubes are streamline
+        \end{itemize}
+    \end{itemize}
+    \item Pathlines
+    \begin{itemize}
+        \item A path a particle takes as it moves.
+        \item Experimentally, particle tagged and captured using large exposure.
+    \end{itemize}
+    \item Streaklines
+    \begin{itemize}
+        \item A line that connects all the fluid particles that have passed through the same point in space at a previous time
+        \item Experimentally, use smoke o
+    \end{itemize}
+\end{itemize}
+\section{Flow Distinction}
+\begin{itemize}
+    \item A steady flow is when velocity, pressure, temperature, and density is time-independent.
+    \item A unsteady flow is when these are time-dependent.
+    \item The streamline, streakline, and pathline passing through a particular location will be identical in a steady flow.
+    \item Viscous flow regions are regions in which frictional effects are significant.
+    \item Invicid flow regions are regions where viscous forces are negligibly small compared to other forces.
+    \item 
 \end{itemize}
 
 
