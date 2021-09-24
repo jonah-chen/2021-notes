@@ -240,7 +240,7 @@
 
         The general solution is $y=t^2+\frac{C}{t^2}$.
     \end{example}
-    \begin{theorem}[Picard–Lindelöf theorem]
+    \begin{theorem}[Picard–Lindelöf]
         Consider the IVP $y'=f(t,y)$ with initial value $y(t_0)=y_0$. Consider furthermore an open rectangle $R=(\alpha,\beta)\times(\gamma,\delta)$ in the $t-y$ plane. If
         \begin{enumerate}
             \item $(t_0,y_0)\in R$
@@ -255,6 +255,62 @@
             \item Non-linear ODEs don't necessarily have a general solution.
             \item The solution might be implicit. e.g. $\sqrt{y^2+\log y}=5t$
         \end{enumerate}
+
+        \vspace{10pt}
+        \textbf{Clarifications:}
+        \begin{itemize}
+            \item We need $f$ continuous in the rectangle to get existance.
+            \item We need $\partialderivative{f}{y}$ continuous in the rectangle to get uniqueness.
+        \end{itemize}
+        \begin{proof}
+            The proof for this theorem is beyond the scope of this class.
+        \end{proof}
     \end{theorem}
+    \item Note that these theorems are \textbf{sufficient} conditions for existance and uniqueness. Even if the hypotheses are not satisfied, it may be possible that existance and uniqueness holds.  However, they are not guarenteed by the theorem. 
+    \item If existance and uniqueness holds, solution curves \textbf{cannot} cross each other. 
+    \item For the equation $y'=\frac{t^2}{1-y^2}$, Picard–Lindelöf guarentees local existance and uniqueness, however, the existance and uniqueness at given initial conditions only lasts for a finite interval. 
+    \begin{center}
+        \includegraphics{mat292/fig2.png}
+    \end{center}
+\end{itemize}
+\section{Autonomous Equations and Population Dynamics}
+\begin{itemize}
+    \item Exponential Growth $y'=ky$.
+    \item Logistic Growth:
+    \begin{itemize}
+        \item If uninhibited, we assume exponential growth.
+        \item However, in the long run, population is limited to $k$. Consider the model
+        \begin{equation}
+            y'=ryh(y)
+        \end{equation}
+        We would want several properties about $h(y)$.
+        \begin{itemize}
+            \item $h(y)\approx 1$ if $y<<k$.
+            \item $0<h(y)<1$ if $y<k$.
+            \item $h(y)=0$ if $y=k$.
+            \item $h(y)<0$ if $y>k$.
+        \end{itemize}
+        \item To keep the model as simple as possible, we will fulfill all the conditions with a linear function $h(y)=1-\frac{y}{k}$.
+        \item We arrive at the ODE
+        \begin{equation}
+            y'=r\left(1-\frac{y}{k}\right)y   
+        \end{equation}
+        \item As this is an autonomous ODE, we can draw a phase plot.
+        \begin{center}
+            \begin{tikzpicture}% gnuplot%\begin{}[]%\addplot gnuplot {};%\end{}%\end{}
+                \begin{axis}[xlabel=y/k,ylabel=y']
+                    \addplot [
+                        domain=0:1.1,
+                        samples=200,
+                        color=blue,
+                        ]
+                        {(1-x)*x};
+                        ]                    
+                \end{axis}
+            \end{tikzpicture}
+        \end{center}
+        \item There are two fixed points. $y/k=0$ is unstable and $y/k=1$ is stable.
+        \item If $y/k<1/2$, then the solution will have an inflection point.
+    \end{itemize}
 \end{itemize}
 \end{document}

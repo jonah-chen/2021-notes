@@ -300,4 +300,107 @@ where
     \item $\tan\delta=0$ and $A(\omega)=\frac{a}{1-(\omega/\omega_0)^2}$ when $\omega<\omega_0$
     \item $\tan\delta=\pi$ and $A(\omega)=-\frac{a}{1-(\omega/\omega_0)^2}$ when $\omega>\omega_0$
 \end{itemize}
+
+\subsection{With damping}
+
+\begin{align}
+    \ddot x+\gamma\dot x+\omega_0^2&=ae^{i\omega t}
+\end{align}
+Solving for $x$, the particular solution is
+\begin{align}
+    x=A(\omega)e^{i(\omega t-\delta)}
+\end{align}
+with $\tan\delta=\frac{\omega\gamma}{\omega_0^2+\omega^2}$, $A(\omega)=\frac{a\omega_0^2}{\sqrt{(\omega_0^2-\omega^2)^2+(\omega\gamma)^2}}$. %This is DAF for civ102
+\begin{center}
+    \begin{tikzpicture}% coordinates%\begin{}[]%\addplot coordinates {};%\end{}%\end{}
+        \begin{axis}[xlabel=$\omega/\omega_0$,ylabel=$A(\omega)$]
+            \addplot [
+                domain=0:3,
+                samples=200,
+                color=blue,
+                ]
+                {1/sqrt((1-x^2)^2+0.3*0.3*x*x)};
+            \addlegendentry{$\gamma=0.3$}
+            \addplot [
+                domain=0:3,
+                samples=200,
+                color=red,
+                ]
+                {1/sqrt((1-x^2)^2+x*x)};
+            \addlegendentry{$\gamma=1$}
+            \addplot [
+                domain=0:3,
+                samples=200,
+                color=green,
+                ]
+                {1/sqrt((1-x^2)^2+9*x*x)};
+            \addlegendentry{$\gamma=3$}
+        \end{axis}
+    \end{tikzpicture}
+    \begin{tikzpicture}% coordinates%\begin{}[]%\addplot coordinates {};%\end{}%\end{}
+        \begin{axis}[]
+            \addplot [
+                domain=0:3,
+                samples=200,
+                color=blue,
+                ]
+                {atan(1/sqrt(abs(x^2-1)))};            
+        \end{axis}
+    \end{tikzpicture}
+\end{center}
+
+If it is driven at the resonance frequency, 
+\begin{align}
+    A&=\frac{a\omega_0}{\gamma}\\
+    \delta&=\frac{\pi}{2}
+\end{align}
+
+For large damping, $\omega_{max}\neq\omega_0$.
+
+\subsection{Power}
+
+If the motion of a driven oscillator is
+\begin{equation}
+    x=A(\omega)e^{i(\omega t-\delta)}
+\end{equation}
+The velocity is 
+\begin{equation}
+    \dot x=iA(\omega)\omega e^{i(\omega t-\delta)}
+\end{equation}
+Note that power lost to damping is 
+\begin{equation}
+    P=b\dot x^2
+\end{equation}
+The full width at half height of the period-averaged power is $\gamma/\omega_0=\frac{1}{Q}$
+\begin{center}
+    \begin{tikzpicture}% coordinates%\begin{}[]%\addplot coordinates {};%\end{}%\end{}
+        \begin{axis}
+            \addplot [
+                domain=0:2,
+                samples=70,
+                color=blue,
+                ]
+                {x^2/((x-1)^2+0.3*x*x)};            
+        \end{axis}
+    \end{tikzpicture}
+\end{center}
+
+If the driving frequency is close to the natural frequency, 
+\begin{equation}
+    (\omega^2-\omega_0^2)=(\omega-\omega_0)(\omega+\omega_0)\approx -2\omega_0\Delta\omega
+\end{equation}
+Then, 
+\begin{equation}
+    \overline P(\omega)=\frac{F_0^2}{2m\gamma[\frac{4\Delta\omega^2}{\gamma^2}+1]}
+\end{equation}
+\subsection{Reasonance in RLC circuits}
+\begin{align}
+    RI+L\dot I+\frac{q}{C}&=\varepsilon_0\cos(\omega t)\\
+    L\ddot q+R\dot q+\frac{q}{C}&=\varepsilon_0\cos(\omega t)\\
+    \ddot q+\frac{R}{L}\dot q+\frac{1}{LC}q&=\frac{\varepsilon_0}{L}\cos(\omega t)
+\end{align}
+$$\omega_0^2=\frac{1}{LC},\gamma=\frac{R}{L},Q=\frac{\omega_0}{\gamma}=\sqrt{\frac{L^2}{RC}}$$
+\begin{align}
+    q(t)=q_0(\omega)e^{i(\omega t-\delta)}
+\end{align}
 \end{document}

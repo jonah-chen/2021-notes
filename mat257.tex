@@ -43,7 +43,7 @@
     Note that $\partial[a,b]=\{b+, a-\}$.
 \end{itemize}
 
-\section{Continuity}
+\section{Distances}
 \begin{itemize}
     \item Roughly speaking, continuity from $\mathbb R\to\mathbb R$ means if two points are near, their images should be near also.
     \item Thus, in $\mathbb R^n$, the intuitive meaning should be similar.
@@ -479,7 +479,93 @@ Continuity:
     \item If $x_n$ converges to x, then $f(x_n)$ converges to $f(x)$.
 \end{itemize}
 
+\section{Continuity}
 
+\begin{definition}[Image and Preimage]
+    Given $F:\R^n\to\R^m$,
+    \begin{itemize}
+        \item $C\subset\R^n$, the image of $C$ is $F(C):=\{F(\gamma):\gamma\in C\}$
+        \item $D\subset\R^m$, the preimage of $D$ is $F^{-1}(D):=\{\gamma\in\R^n:F(\gamma)\in D\}$
+    \end{itemize}
+    Note the image behaves better on points, but preimage behaves better on sets, as,
+    \begin{align}
+        F^{-1}(D_1\cup D_2)&=F^{-1}(D_1)\cup F^{-1}(D_2)\\
+        F^{-1}(D_1\cap D_2)&=F^{-1}(D_1)\cap F^{-1}(D_2)\\
+        F^{-1}(D^C)&=F^{-1}(D)^C
+    \end{align}
+
+    \begin{align}
+        F(C_1\cup C_2)&=F(C_1)\cup F(C_2)\\
+        F(C_1\cap C_2)&\subset F(C_1)\cap F(C_2)\\
+        F(C^C)&\neq F(C)^C
+    \end{align}
+\end{definition}
+\begin{definition}[Projection]
+    $\pi_i:\R^n\to\R$
+    \begin{equation}
+        \pi_i\begin{pmatrix}
+            x_1\\\vdots\\x_n
+        \end{pmatrix}=x_i
+    \end{equation}
+\end{definition}
+\begin{definition}[Coordinate Functions]
+    For $F:\R^n\to\R^m$, or 
+    \begin{align}
+        \begin{pmatrix}
+            x_1\\\vdots\\x_n
+        \end{pmatrix}\to\begin{pmatrix}
+            y_1\\\vdots\\y_m
+        \end{pmatrix}=\begin{pmatrix}
+            f_1(x_1,\dots,x_n)\\\vdots\\f_m(x_1,\dots,x_n)
+        \end{pmatrix}
+    \end{align}
+
+    Where $f_i:\R^n\to\R$ for $i=1,\dots,m$ are the coordinate functions of $f$. $f_i=\pi_i\circ F$ 
+\end{definition}
+\begin{definition}[Composition]
+    Given $f:\R^n\to\R^m$, $g:\R^m\to\R^p$, and $h=g\circ f:\R^n\to\R^p$
+    \begin{equation}
+        h(x)=g(f(x))=(g\circ f)(x)
+    \end{equation}
+\end{definition}
+\begin{definition}[Graph]
+    A function $f:\R\to\R$, the graph of $f$ is 
+    \begin{equation}
+        \Gamma_f=\{(x,f(x)):x\in\R\}\subset\R\times\R=\R^2
+    \end{equation}
+
+    A function $f:\R^n\to\R^m$, the graph of $f$ is 
+    \begin{equation}
+        \Gamma_f=\{x,f(x):x\in\R^n\}\subset\R^n\times\R^m=\R^{n+m}
+    \end{equation}
+\end{definition}
+\begin{definition}[Limit]
+    Suppose $f:A\subset\R^n\to\R^m;a\in\overline A$
+    \begin{equation}
+        \lim_{x\to a}f(x)=b \text{ means } \forall\varepsilon>0\exists\delta>0:x\in (B_\delta(a)\setminus\{x\})\cap A\implies f(x)\in B_\epsilon(b)
+    \end{equation}
+
+    \begin{itemize}
+        \item If the limit exists, it is unique.
+    \end{itemize}
+\end{definition}
+\begin{definition}[Continuity]
+    $f:A\subset\R^n\to\R^m$ is continuous at $a\in A$ if $\lim_{x\to a}f(x)=f(a)$.
+
+    $f$ is continuous on $A\iff f$ is cont. at every $a\in A$.
+    \begin{equation}
+        \iff\forall a\,\forall\epsilon>0\,\exists\delta>0\,\forall x\in A:|x-a|<\delta\implies|f(x)-f(a)|<\epsilon
+    \end{equation}
+\end{definition}
+\begin{definition}
+    $B\subset A$ is \textit{open in }$A$ if $\exists U$ open in $\R^n$ such that $B=U\cap A$.
+\end{definition}
+\begin{theorem}
+    \begin{enumerate}
+        \item $f:\R^n\to\R^m$ is cont. iff for every open set $V\subset\R^m, f^{-1}(V)$ is also open.
+        \item $f:A\subset\R^n\to\R^m$ is cont. iff for every open set $V\subset\R^m, f^{-1}(V)$ is open in $A$.
+    \end{enumerate}
+\end{theorem}
 
 
 \end{document}
