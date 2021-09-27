@@ -91,24 +91,24 @@
   title=\textbf{{#1}},
 }
 
-\newtcolorbox{definition}{
+\newtcolorbox[auto counter]{definition}[1][]{
     one-sided-color=my-green,
-    title=\textbf{Definition},
+    title=\textbf{Definition \thetcbcounter},
 }
 
-\newtcolorbox{theorem}{
+\newtcolorbox[auto counter]{theorem}[1][]{
     one-sided-color=my-blue,
-    title=\textbf{Theorem},
+    title=\textbf{Theorem \thetcbcounter},
 }
 
-\newtcolorbox{proposition}{
+\newtcolorbox[auto counter]{proposition}[1][]{
     one-sided-color=my-blue2,
-    title=\textbf{Proposition},
+    title=\textbf{Proposition \thetcbcounter},
 }
 
-\newtcolorbox{corollary}{
+\newtcolorbox[auto counter]{corollary}[1][]{
     one-sided-color=my-blue4,
-    title=\textbf{Corollary},
+    title=\textbf{Corollary \thetcbcounter},
 }
 
 \newtcolorbox[auto counter]{lemma}{

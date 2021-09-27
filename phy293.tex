@@ -257,13 +257,13 @@ Recall $m\ddot x=-kx-b\dot x$
     As $\displaystyle{\gamma=\frac{\omega_0}{Q}, \omega=\omega_0\sqrt{1-\frac{1}{4Q^2}}}$.
     \begin{center}
         \begin{tikzpicture}
-            \begin{axis}
+            \begin{axis}[xlabel=$Q$,ylabel=$\omega/\omega_0$]
                 \addplot [
                     domain=0:10,
                     samples=200,
                     color=blue,
                     ]
-                    {sqrt(1-0.25*x^(-2))};                
+                    {sqrt(1-0.25*x^(-2))};
             \end{axis}
         \end{tikzpicture}
     \end{center}
@@ -401,6 +401,12 @@ Then,
 \end{align}
 $$\omega_0^2=\frac{1}{LC},\gamma=\frac{R}{L},Q=\frac{\omega_0}{\gamma}=\sqrt{\frac{L^2}{RC}}$$
 \begin{align}
-    q(t)=q_0(\omega)e^{i(\omega t-\delta)}
+    q(t)&=q_0(\omega)e^{i(\omega t-\delta)}\\
+    q_0(\omega)&=\frac{\varepsilon_0}{L\sqrt{(\omega_0^2-\omega^2)^2+\left(\frac{R\omega}{L}\right)^2}}=\frac{\varepsilon_0}{\omega\sqrt{\left(\frac{1}{\omega C}-\omega L\right)^2+R^2}}
 \end{align}
+
+\subsection{Transient Phenomena}
+
+When the driving force is first applied and the system is distributed from equilibium the system will be inclined to oscillate at its natural frequency, especially if the system is delicate.This is shown by the homogenous solution of the differential equation. 
+
 \end{document}

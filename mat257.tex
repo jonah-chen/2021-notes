@@ -560,12 +560,52 @@ Continuity:
 \begin{definition}
     $B\subset A$ is \textit{open in }$A$ if $\exists U$ open in $\R^n$ such that $B=U\cap A$.
 \end{definition}
-\begin{theorem}
-    \begin{enumerate}
-        \item $f:\R^n\to\R^m$ is cont. iff for every open set $V\subset\R^m, f^{-1}(V)$ is also open.
-        \item $f:A\subset\R^n\to\R^m$ is cont. iff for every open set $V\subset\R^m, f^{-1}(V)$ is open in $A$.
-    \end{enumerate}
+\begin{theorem}[General Definition of Continuity]
+
+    $f:A\subset\R^n\to\R^m$ is cont. iff whenever $U\subset\R^m$ is open, $f^{-1}(U)$ is open in $A$. (i.e. $\exists V\subset\R^n$ which is open and s.t. $f^{-1}(U)=V\cap A$.)
+
+    \begin{proof}[Proof in the case where $A=\R^n$] 
+        $\implies$ Assume $U\subset\R^m$ is open, NTS $f^{-1}(U)$ is open.
+        \vspace{10pt}
+
+        Pick $a\in f^{-1}(U)$, then $f(a)\in U$ so pick $\epsilon>0$ s.t. $B_{\epsilon}(f(a))\subset U$, by continuity, find $\delta>0$ s.t. $f(B_{\delta}(a))\subset B_{\epsilon}(f(a))\subset U$.
+        \vspace{10pt}
+
+        So, $a\in B_{\delta}(a)\subset f^{-1}(U)$. So, $f^{-1}(U)$ is open.
+        \vspace{10pt}
+
+        $\impliedby$ Given $a\in\R^n$ and $\epsilon>0$, consider $B_\epsilon(f(a))$ it is open. So, $a\in f^{-1}(B_\epsilon(f(a)))$ is open.
+        \vspace{10pt}
+
+        So $\exists\delta>0:B_\delta(a)\subset f^{-1}(B_{\epsilon}(f(a)))$.        
+    \end{proof}
 \end{theorem}
 
+\begin{theorem}
+    $f:\R^n\to\R^m$, $g:\R^m\to\R^p$, $f,g$ cont. $\implies g\circ f$ is continuous. 
+    \begin{proof}
+        Given $U\in\R^p$ open, $(g\circ f)^{-1}(U)=f^{-1}(g^{-1}(U))$. By the continuity of $g$, $g^{-1}(U)$ is open. By the continuity of $f$, $f^{-1}(g^{-1}(U))$ is open. Thus, $g\circ f$ is continuous. 
+    \end{proof}
+\end{theorem}
 
+\begin{theorem}
+    If $f:\R^n\to\R^m$ cont and $C\subset\R^n$ is compact. Then, $f(C)$ is compact. 
+    
+    ``A cont. image of a compact is compact''
+    \begin{proof}[Sketch of Proof]
+        Given an open cover $\{U_\alpha\}$ of $f(C)$, $\{f^{-1}(U\alpha)\}$ is an open cover of $C$. Hence, it has a finite subcover. Which in itself corresponds to a finite subcover for $f(C)$
+    \end{proof}
+\end{theorem}
+\begin{corollary}
+    A cont. function on a compact set is bounded. 
+\end{corollary}
+\begin{theorem}
+    $f$ cont $\iff (U$ open $\implies f^{-1}(U)$ open$)$. $\iff (D$ closed $\implies f^{-1}(D)$ closed$)$
+
+    True because $f^{-1}(D^C)=(f^{-1})^C$
+\end{theorem}
+\section{Differentiability}
+\begin{definition}[Differentiability]
+    
+\end{definition}
 \end{document}
