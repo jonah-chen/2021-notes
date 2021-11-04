@@ -20,7 +20,9 @@
 
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\Z}{\mathbb{Z}}
-
+\newcommand{\rm}{\mathrm}
+\newcommand{\vol}{\mathrm{vol}}
+\newcommand{\bf}{\mathbf}
 \begin{document}
 \sffamily
 \maketitle
@@ -604,8 +606,176 @@ Continuity:
 
     True because $f^{-1}(D^C)=(f^{-1})^C$
 \end{theorem}
-\section{Differentiability}
-\begin{definition}[Differentiability]
+\section{Integration}
+\begin{definition}[Oscillation]
+    $f:\R^n\to\R, A\subset\R^n$, an Oscillation on $A$ is 
+    \begin{equation}
+        O(f,A)=\sup_{x\in A}f(x)-\inf_{x\in A}f(x)
+    \end{equation}
+
+    Oscillation of $f$ at $a\in\R^n$ is
+    \begin{equation}
+        O(f,a)=\lim_{r\to0}O(f,B_r(a))
+    \end{equation}
+
+    Informally, this is the ``jump'' of $f$ at $a$. So, we claim that $f$ is continuous at $a$ iff $O(f,a)=0$. 
+\end{definition}
+
+\begin{theorem}
+    Continuous functions are integrable.
+    \begin{proof}
+       Assume $f$ is continuous on a rectangle $R$. A function is continuous if its oscillation at every point is equal to 0. Pick a number $\delta$, for every $a\in R$ find a ball $B(a)$ s.t. $O(f,B(a))<\delta$. For each $a$ find an open rectangle $R_a$ containing $a$ and s.t. $\overline{R_a}\subset B(a)$. So, $O(f,\overline{R_a})<\delta$.
+
+       The collection $\{R_a\}$ covers $R$. By compactness, we can find $a_1,\dots,a_p$ s.t. $R_{a_1},\dots,R_{a_p}$ cover $R$.
+
+       Find a partition $P$ whose cut points $(t_{ij})$s are all of the endpoints of all of the $R_{a_i}$s. 
+       
+        Now, if $S\in P$, then $S\subset R_{a_i}$ for some $i$, so, $O(f,S)\leq O(f,R_{a_i})<\delta$. Now, 
+        \begin{equation}
+            U(f,P)-L(f,P)=\sum_{S\in P}\mathrm{vol}(S)(M_S(f)-m_S(f))=\sum_{S\in P}\mathrm{vol}(S)O(f,s)\leq\delta\sum\mathrm{vol}(s)=\delta\mathrm{vol}(R)
+        \end{equation}
+
+        Hence, choose $\delta=\frac{\varepsilon}{v(R)}$ that proves the theorem.
+    \end{proof}
+\end{theorem}
+
+Our goal now is to prove a theorem of the following form:
+\begin{itemize}
+    \item $f$ is integrable $\iff f$ is continuous except on a \cancel{tiny set} set of measure 0.
+\end{itemize}
+
+\begin{definition}[Measure Zero]
+    A set $A\subset\R^n$ is measure zero in $\R^n$ if $\forall\varepsilon>0$ you can find a sequence $R_i$ of open or closed rectangles ($i=1,2,3,\dots$) such that $A\subset\bigcup R_i$ and $\sum\mathrm{vol}R_i<\epsilon$
+
+    \textbf{Examples:}
+    \begin{enumerate}
+        \item A finite set is of measure 0. (use rectangles small enough)
+        \item An infinite sequence of points $\{x_i\}$ is of measure 0. (use rectangles with volumes less than a geometric sequence)
+        \item A set in $\R^m$ is of measure 0 in $\R^n$ where $m<n$. (use a single rectangle that's very thin) \textbf{warning: the notion of ``measure zero'' is dependent of dimension}.
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}[Countability]
+    A set $X$ is countable if there is a sequence $x_i$, $i=1,2,3,\dots$ s.t. the $\{x_i\}=X$. Or, $\exists f:\mathbb{N}\to X$ s.t. $f(\mathbb N)=X$.
+    \textbf{Claims:}
+    \begin{enumerate}
+        \item Finite sets are countable.
+        \item A subset of a countable set is countable.
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}[Content zero]
+    A set $A\in\R^n$ is said to be content zero if $\forall\varepsilon>0$ it is contained in a finite union of rectangles whose $\sum\mathrm{vols}<\varepsilon$.
+
+    \textbf{Examples:}
+    \begin{enumerate}
+        \item $Z\subset\R$ is measure zero, but not content zero.
+    \end{enumerate}
+\end{definition}
+\begin{proposition}
+    Compact set $A$ of measure zero is of content zero.
+    \begin{proof}
+        Suppose $\varepsilon>0$, cover $A$ with countably many open rectangle whose sum of volumes is less than $\varepsilon$. By compactness, finitely many of those who already cover $A$, and the sum of their volumes is still less than $\varepsilon$.
+    \end{proof}
+\end{proposition}
+\begin{proposition}
+    $R=\prod[a_i,b_i]$, $vol(R)>0$ is not of content zero $\implies R$ is not measure 0. (This also shows $[0,1]$ is not countable)
+    \begin{proof}
+        Suppose $(R_i)_{i=1}^N$ are rectangles that cover $R$. We will show that $\sum_{i=1}^Nv(R_i)\geq v(R)>0$.
+
+        WLOG, $R_i\subset R$. 
+
+        Find a partition $P$ of $R$ s.t. if $S\in P$ then $S\subset R_i$. Then, \begin{equation}
+            \mathrm{vol}(R)=\sum_{S\in P}\mathrm{vol}(S)\leq\sum_{i=1}^N\sum_{S\in P\land S\subset R_i}\mathrm{vol}(S)=\sum_{i=1}^N\vol(R_i)
+        \end{equation}
+    \end{proof}
+\end{proposition}
+
+\begin{theorem}
+    For $f$ bounded on a rectangle $R\subset\R^n$,
+    $f:R\to\R$ is integrable $\iff f$ is continuous except for a set of measure zero.
+    \begin{proof}
+        Assume $f$ is continuous except on a set $E$ (evil set) of measure 0. Let $\varepsilon>0$. As $E$ is measure zero, find rectangles $B_i$ s.t. $\bigcup_{i=1}^\infty B_i\supset E$, and $\sum_{i=1}^\infty\vol(B_i)<\delta_1=\frac{\varepsilon}{4M}$.
+
+        Now for every $y\in R\setminus E, f$ is continuous at y, so $O(f,y)=0$, so find a rectangle $A_y$ s.t. $y\in\mathrm{int}(A_y)$ and $O(f,A_y)<\delta_2=\frac{\varepsilon}{2\vol(R)}$. 
+        \begin{align}
+            \bigcup_{y\in R\setminus E}\rm{int}(A_y)\cup\bigcup_{i=1}^\infty\rm{int}(B_i)\supset R
+        \end{align}
+        By compactness, there is a finite subcover, $A_{y1},\dots,A_{yp}, B_{i1},\dots,B_{yq}$. Let $P$ be the partition of $R$ s.t. if $S\in P$ then $S\subset A_{ij}$ or $S\subset B_{ij}$ for some $j$.
+
+        Because $f$ is bounded on $R$ so $|f|\leq M$
+        \begin{align}
+            U(f,P)-L(f,P)=\sum_{S\in P}\vol(S)O(f,S)\\
+            &\leq\sum_{S\in P\land\exists j:S\subset A_{yi}}\vol(S)O(f,s)+\sum_{S\in P\land\exists j:S\subset B_{yj}}\\
+            &\leq\sum\vol(S)\delta_2+\sum\vol(S)\cdot 2m\\
+            &\leq\vol(R)\delta_2+2M\delta_1
+        \end{align}
+        
+        Assume $f$ is integrable, let $E=\mathrm{disc}(f)=\{x:f\text{ isn't continuous at }$x$\}=\{x:O(f,x)>0\}=U_n\{x:O(f,x)>\frac{1}{n}\}$. Our goal is to show that each $E_n$ is measure zero, but we will show that each $E_n$ is content zero.
+
+        Fix some $n$ and fix $\varepsilon>0$, as $f$ is integrable, find a partition $P$ s.t. $U(f,P)-L(f,P)<\delta$ where $\delta=\frac{\varepsilon}{2n}$.
+        \begin{align}
+           \delta>\sum_{S\in P}\vol(S)O(f,S)\geq\sum_{s\in P\land\mathrm{int}S\cap E_n\neq\emptyset}\vol(S)O(f,S)>\sum_{s\in P\land\mathrm{int}S\cap E_n\neq\emptyset}
+           \implies\sum_{s\in P\land\mathrm{int}S\cap E_n\neq\emptyset}\vol(S)<\frac{n\delta}{2}=\frac{\varepsilon}{2}
+        \end{align}
+
+        Now, $\{S\in P:\int(S)\cap E_n\}$ covers $E_n$ except perhaps $E_n\cap G$ where $G=\bigcup_{S\in P}\mathrm{bd}S$. But, $G$ itself is of content zero so $E_n\cap G$ can be covered with further rectangles, whose total volume is $\frac{\varepsilon}{2}$.
+
+        Now, all rectangles taken together cover $E_n$ and have total volume less than $\varepsilon$.
+    \end{proof}
+
+    \textbf{Warning: this theorem often makes people think measure zero sets can be ignored. This is not true.}
     
+    Example: $f:[0,1]\to\R$. Let $f(x)=\begin{cases}
+        1 & x\in\mathbb Q\\
+        0 & x\notin\mathbb Q
+    \end{cases}$
+
+    $f(x)=0$ except on $\mathbb Q\cap[0,1]$ which is measure zero. However, $f$ is not integrable because the discontinuities are of measure one.
+\end{theorem}
+
+\begin{corollary}
+    If $g$ is integrable and $f$ differs from $g$ on a set of content zero. Then, $f$ is integrable too and $\int f=\int g$.
+    \begin{enumerate}
+        \item Changing finitely many points keeps $\int$.
+        \item Changing $g$ on a closed set of measure zero keeps $\int$.
+    \end{enumerate}
+
+    \begin{proof}[Sketch of Proof]
+        $g=f$ except on $B$ of content zero. Cover $B$ with finitely many rectangles.
+
+        Take a partition that is good for $g$. Refine the partition with the rectangles which cover $B$. As $B$ is content zero, the volumes of the rectangles that intersect $B$ can be made arbiturarily small.
+    \end{proof}
+\end{corollary}
+\begin{definition}[Jordan measurable]
+    $C$ is Jordan measurable if $C$ is bounded and $\textrm{bd}C$ is of content zero.
+\end{definition}
+\begin{definition}[Integrals on an arbiturary region]
+    Given a set $C\subset\R^n$. Define 
+    \begin{equation}
+        \chi_c(x)=1_c(x)=\begin{cases}
+            1 & x\in C\\
+            0 & x\notin C
+        \end{cases}
+    \end{equation}
+
+    \begin{equation}
+        f\chi_c(x)=\begin{cases}
+            f(x) & x\in C\\
+            0 & x\notin C
+        \end{cases}
+    \end{equation}
+
+    Define \begin{equation}
+        \vol(C)={R\supset C}\chi_c
+    \end{equation}
+    when $C$ is bounded and $\textrm{bd}C$ is of content zero.
+
+    Suppose $f$ is Jordan-measurable set $C\in\R^n$, then 
+    \begin{equation}
+        \int_Cf=\int_Rf\cdot\chi_C
+    \end{equation} 
+    where $R$ is any rectangle containing $C$.
+
 \end{definition}
 \end{document}

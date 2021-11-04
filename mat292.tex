@@ -313,4 +313,35 @@
         \item If $y/k<1/2$, then the solution will have an inflection point.
     \end{itemize}
 \end{itemize}
+
+\section{Variation of Parameters}
+Consider the 2nd order nonhomogeneous ODE $y''+p(t)+q(t)y=g(t)$. The general solution of this ODE can be written as 
+\begin{equation}
+    y(t)=c_1y_1(t)+c_2y_2(t)+Y(t)
+\end{equation}
+where $Y(t)$ is a particular solution of the 2nd order ODE.
+\begin{itemize}
+    \item Assume we have already found the homogenous solution $y(t)=c_1y_1(t)+c_2y_2(t)$.
+    \item To get a particular solution of the try non-constant parameters
+    \begin{equation}
+        Y(t)=u_1(t)y_1(t)+u_2(t)y_2(t)
+    \end{equation}    
+\end{itemize}
+Now consider a system of ODES $x'=P(t)x+g(t)$. If given the homogenous solution, we can find the fundamental matrix $X(t)$ such that $X'=P(t)X$.
+
+To find the particular solution, $x_p=X(t)U(t)$. Plugging this into the ODE we get
+\begin{align}
+    (X(t)U(t))'&=P(t)X(t)U(t)+g(t)\\
+    X'(t)U(t)+X(t)U'(t)&=P(t)X(t)U(t)+g(t)\\
+    X(t)U'(t)&=g(t)\\
+    U'(t)&=X^{-1}g(t)
+\end{align}
+
+\begin{itemize}
+    \item For a second order equation, use $X=\begin{pmatrix}
+        y\\y'
+    \end{pmatrix}$. Then, the particular solution is given by\begin{equation}
+        y_p=y_1\int\frac{-y_2g}{y_1y_2'+y_1'y_2}dt+y_2\int\frac{y_1g}{y_1y_2'+y_1'y_2}dt
+    \end{equation}
+\end{itemize}
 \end{document}

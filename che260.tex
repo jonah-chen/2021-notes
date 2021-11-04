@@ -1,5 +1,5 @@
 \documentclass[a4paper]{article}
-\title{CHE360---Thermodynamics \& Heat Transfer}
+\title{CHE260---Thermodynamics \& Heat Transfer}
 \author{Jonah Chen}
 
 \usepackage[utf8]{inputenc}
@@ -19,6 +19,86 @@
 \begin{document}
     \maketitle
     \tableofcontents
+	
+    \section{Conduction}
 
-    \section{}
+	\subsection{Fourier's Law (relates heat flux to temperature)}
+	\begin{equation}
+		\dot q=-k\frac{\partial T}{\partial x}
+	\end{equation}
+
+
+	\subsection{Heat Equation}
+	The heat equation is a statement of the first law (conservation of energy), which describes conduction.
+
+	\begin{equation}
+		(\partial_t-\alpha\nabla^2)T=0
+	\end{equation}
+	
+	In steady state, $\partial_t T=0$, so the heat equation reduces to Laplace's equation for temperature $\nabla^2 T=0$.
+	Energy Balance for something:	
+	\begin{equation}
+		\rho c_p\partial_t T=-\frac{1}{A}\partial_x(\dot qA)
+	\end{equation}
+
+	1-dimensional Heat Equation	
+	\begin{align}
+		(\partial_t-\alpha\partial_x^2)T=0
+	\end{align}
+	where $\alpha:=\frac{k}{\rho c_p}$, with units of m$^2/$s.
+	\begin{itemize}
+		\item High $k$ --- Material conducts heat well.
+		\item High $\rho c_p$ --- Material stores energy well.
+	\end{itemize}
+
+	In cylinderical coordinates (in the r direction), 
+	\begin{equation}
+		(\partial_t-\frac{\alpha}{r}\partial_r(r\partial_r)) T = 0
+	\end{equation}
+	
+	In spherical coordinates (in the r direction),
+	\begin{equation}
+		(\partial_t-\frac{\alpha}{r^2}\partial_r(r^2\partial_r)) T = 0
+	\end{equation}
+	
+	Common Solutions:
+	Steady state solution for cartesian coordinates is
+	\begin{equation}
+		T = mx+b
+	\end{equation}
+
+	\subsection{Thermal Resistance}
+
+	When dealing with steady state behavior for multiple connected mediums, it is useful to define a quantity called thermal resistance with the property that 
+	\begin{equation}
+		\dot Q=\frac{T_1-T_2}{R}
+	\end{equation}
+
+	The calculated values for resistances are
+	\begin{itemize}
+		\item For conduction, $R=\frac{L}{kA}$.
+		\item For convection, $R=\frac{1}{hA}$.
+		\item For radiation, $R=\frac{1}{\varepsilon\sigma A(T^2-T_\infty^2)(T-T_\infty)}$.
+	\end{itemize}
+
+	For two mediums connected in series,
+	\begin{equation}
+		R_T=R_1+R_2
+	\end{equation}
+
+	It is also useful to define an overall heat transfer coefficient $U=\frac{1}{R_TA}$
+	\begin{equation}
+		\dot Q=UA(T_1-T_2)
+	\end{equation}
+
+   
+	\section{Convection}
+	Newton's Law of Cooling:
+	\begin{equation}
+		\dot q=h(T-T_\infty)
+	\end{equation}
+
+	
+	
+	
 \end{document}

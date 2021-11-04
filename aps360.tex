@@ -174,6 +174,35 @@ def simple_ann(x,w,t,iterations,learning):
     \item Credit Assignment Problem: Naively computing gradients require exponential computation. This can be solved by dynamic programming, where complexity grows \textbf{linearly} with depth, and \textbf{quadratically} with the width.    
 \end{itemize}
 
+\section{Convolutional Neural Networks}
+
+\begin{itemize}
+    \item If we are given a $200\times 200$ image, with a two hidden layers of 500 and 200 neurons. Then, a fully connected model will be have a billion parameters. 
+    \item Fully connected layers has inductive bias, as it cannot process spacial data.
+    \item Convolutional filters are used in signal processing. To convolve a kernel $K$ with image $I$
+    \item There are hand-designed kernals used for classical computer vision. For example, the kernal
+    \begin{equation}
+        K=\frac{1}{9}\begin{pmatrix}
+            1 & 1 & 1\\ 1 & 1 & 1\\
+1 & 1 & 1\end{pmatrix}    
+    \end{equation}
+    produces a blur for the image
+    \begin{equation}
+        K=\begin{pmatrix}
+            1 & 0 & -1\\ 2 & 0 & -2\\ 1 & 0 & -1  
+        \end{pmatrix}
+    \end{equation}
+    is a vertical edge detector. $K^T$ is a horizontal edge detector.
+    \item The idea of CNNs are not to hand-craft these kernals, but to learn them from data. This has several benefits against fully connected networks:
+    \begin{itemize}
+        \item Locally connected layers: look for local features in the small regions of the image
+        \item Weight sharing: detects the same local features across the entire image
+    \end{itemize}
+    \item For square images, $o=(i-k+2p)/s+1$. Where $o$ is the output size, $i$ is the input size, $p$ is the padding, and $s$ is the stride.
+    \item In a fully connected neural network, we reduced the number of units before the final layer. This is to consolidate information, and only keep the most important information for classification. In CNN, we use strided convolutions and pooling to accomplish the same task.
+    \item Pooling is deterministic. 
+    \item In general, if you go deeper, you increase the number of kernals, but you decrease the height and width of the features map.
+\end{itemize}
 
 
 
