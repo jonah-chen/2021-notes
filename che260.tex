@@ -24,7 +24,7 @@
 
 	\subsection{Fourier's Law (relates heat flux to temperature)}
 	\begin{equation}
-		\dot q=-k\frac{\partial T}{\partial x}
+		\dot q=-k\nabla T
 	\end{equation}
 
 
@@ -86,19 +86,58 @@
 		R_T=R_1+R_2
 	\end{equation}
 
+	For two mediums connected in parallel,
+	\begin{equation}
+		R_T=\frac{R_1R_2}{R_1+R_2}
+	\end{equation}
+
 	It is also useful to define an overall heat transfer coefficient $U=\frac{1}{R_TA}$
 	\begin{equation}
 		\dot Q=UA(T_1-T_2)
 	\end{equation}
 
+	The rvalue is $L/k$, hence
+	\begin{equation}
+		\dot Q=\frac{\Delta T}{R_{value}}\times A
+	\end{equation}
+	which is in english units. $L$ is in feet and $k$ is in BTU per h square feet Fahernhit.
+
+	The critical radius of insulation is when the resistance is stationary. When increasing the radius, we are increacing conductive resistance but decreasing convective resistance. 
+	\begin{equation}
+		r_{crit}=\frac{k}{h}
+	\end{equation}
    
+
 	\section{Convection}
 	Newton's Law of Cooling:
 	\begin{equation}
 		\dot q=h(T-T_\infty)
 	\end{equation}
 
-	
-	
-	
+	For a very long fin with perimeter $P$, conduction and convection coefficients $k$ and $h$ in an enviroment at $T_\infty$, (we are also assuming steady state somehow, but not sure how)
+	\begin{equation}
+		(k\partial_x(A\partial_x)-hP)T=-hPT_\infty
+	\end{equation}
+	Assume $A,k,P$ are constant. Define $\Theta=T-T_\infty$ and $a^2=\frac{hP}{kA}$. Then,
+	\begin{equation}
+		(\partial^2_x-a^2)\Theta=0
+	\end{equation}
+	Using boundary conditions of $\Theta(0)=\Theta_b$ and $\Theta(\infty)=0$ (from the definition of $T_\infty$), the unique solution is
+	\begin{equation}
+		\Theta=\Theta_be^{-ax}
+	\end{equation}
+	The rate of heat loss is just equal to the heat entering the base of the fin. Using fourier's law,
+	\begin{equation}
+		\dot Q=\sqrt{hPkA}(T_b-T\infty)
+	\end{equation}
+
+	For a finitely long fin, assume the heat transfer to the air at the end is negligiable (adiabatic). Hence, $\partial_x\Theta|_{x=L}=0$.	
+	\begin{equation}
+		\Theta=\Theta_b\frac{\cosh(a(L-x))}{\cosh(aL)}
+	\end{equation}
+	By similar means, the rate of heat loss for this case is
+	\begin{equation}
+		\dot Q=\dot Q_\infty\tanh(aL)
+	\end{equation}
+	If there is some heat lost to the air, we can correct the length $L_C=L+\frac{A}{P}$
 \end{document}

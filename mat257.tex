@@ -12,7 +12,9 @@
 \usepackage{amssymb}
 \usepackage{pgf,tikz,pgfplots}
 \usepackage{mathrsfs}
-\usepackage{textcomp}
+\usepackage{textcomp}\usepackage{accents}
+\newcommand{\ubar}[1]{\underaccent{\bar}{#1}}
+
 \usetikzlibrary{arrows}
 \numberwithin{equation}{section}
 \pgfplotsset{compat=1.16}
@@ -20,9 +22,7 @@
 
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\Z}{\mathbb{Z}}
-\newcommand{\rm}{\mathrm}
 \newcommand{\vol}{\mathrm{vol}}
-\newcommand{\bf}{\mathbf}
 \begin{document}
 \sffamily
 \maketitle
@@ -699,7 +699,7 @@ Our goal now is to prove a theorem of the following form:
 
         Now for every $y\in R\setminus E, f$ is continuous at y, so $O(f,y)=0$, so find a rectangle $A_y$ s.t. $y\in\mathrm{int}(A_y)$ and $O(f,A_y)<\delta_2=\frac{\varepsilon}{2\vol(R)}$. 
         \begin{align}
-            \bigcup_{y\in R\setminus E}\rm{int}(A_y)\cup\bigcup_{i=1}^\infty\rm{int}(B_i)\supset R
+            \bigcup_{y\in R\setminus E}\mathrm{int}(A_y)\cup\bigcup_{i=1}^\infty\mathrm{int}(B_i)\supset R
         \end{align}
         By compactness, there is a finite subcover, $A_{y1},\dots,A_{yp}, B_{i1},\dots,B_{yq}$. Let $P$ be the partition of $R$ s.t. if $S\in P$ then $S\subset A_{ij}$ or $S\subset B_{ij}$ for some $j$.
 
@@ -776,6 +776,107 @@ Our goal now is to prove a theorem of the following form:
         \int_Cf=\int_Rf\cdot\chi_C
     \end{equation} 
     where $R$ is any rectangle containing $C$.
-
 \end{definition}
+\begin{itemize}
+    \item We have defined the integral, but currently we can integrate close to nothing, except for functions in one dimension.
+    \item To integrate functions, we need Fubini's theorem but we must be careful when we state it. Consider these mishaps:
+    \item Let $A\subset\R^n$ and $B\subset\R^m$ be rectangles, set $R=A\times B\subset\R^n\times\R^m$. Let $f:R\to\R$ be an integrable function, and let $g(x)=\int_B f(x,y)\dd y$. Then,\begin{equation}
+        \int_Rf=\int_Ag\dd x
+    \end{equation}
+
+    This is wrong. The function $f$ is integrable with respect to $x,y$ but not necesarily with respect to $y$ alone. Consider the function $f:[0,1]\times[0,1]\to \R$ such that $f(x,y)=\begin{cases}
+        1 & x\in\mathbb Q\land y=0.5\\
+        0 & \text{otherwise}
+    \end{cases}$
+    This set of discontinuities is of measure 0 in $\R^2$, but is of measure 1 in $\R$ 
+
+    Now consider another function \begin{equation}
+        f(x,y)=\begin{cases}
+            \frac{1}{q} & x,y\in\mathbb Q, x=\frac{p}{q}\\
+            0 & \text{otherwise}
+        \end{cases}
+    \end{equation}
+
+    And another function \begin{equation}
+        h(x)=\begin{cases}
+            1 & x=\frac{p}{q}\\
+            0 & \text{otherwise}
+        \end{cases}
+    \end{equation}
+    The set of discontinuities of $h$ is $\mathbb Q$, which is of measure zero $\implies h$ is integrable and $\int_0^1h(x)=0$. Because for any $\varepsilon>0$, there is only a content zero set in which $h>\varepsilon$. Hence, the integral of $h$ is less than $\varepsilon$.
+
+    If we try to use
+    \begin{equation}
+        g(x)=\begin{cases}
+            \int_Bf(x,y)\dd y & f(x,\_) \text{is integrable}\\
+            17 & \text{otherwise}
+        \end{cases}
+    \end{equation}
+
+    Now, $g(x)=\begin{cases}
+        0 & x\notin\mathbb Q\\
+        17 & x\in\mathbb Q
+    \end{cases}$, which is not integrable.
+
+    \item Note that if $f$ is continuous, all that is not an issue.
+    \item Likewise, if $f(x,-)$ is integrable except for finitely many $x$'s.
+\end{itemize}
+\begin{theorem}[Fubini's]
+    $A\subset\R^n$ and $B\subset\R^m$ be rectangles, set $R=A\times B\subset\R^n\times\R^m$. Let $f:R\to\R$ be an integrable function, and let $\ubar{g}(x)=\int_B f(x,y)\dd y$. 
+    \begin{align}
+        \ubar{g}(x)=&\mathbb L\int_Bf(x,y)\dd y=L(f(x,-))=\sup L(f(x,-), P)\\
+        \bar{g}(x)&=\mathbb U\int_Bf(x,y)\dd y=U(f(x,_))=\inf U(f(x,_), P)\\
+    \end{align}
+    Then,\begin{equation}
+        \int_Rf=\int_A\ubar g=\int_A\bar g
+    \end{equation}
+
+    Now consider the same example, $\bar{g}(x)=\begin{cases}
+        0 & x\notin Q\\
+        \frac{1}{q} & x\in Q
+    \end{cases}=h(x)$, which is integrable.
+
+    Note that if $f$ is continuous, $\ubar{g}(x)=\bar{g}(x)=\int_Bf(x,y)\dd y$.
+
+    \begin{proof}
+        As $f$ is integrable, there is a partition $P$ of $R$ where $U(f,P)-L(f,P)<\varepsilon$.
+        Given a partition $P$ of $R$, we can write it as $P_A\times P_B$ where $P_A$ and $P_B$ are partitions of $A$ and $B$. Similarly, given an element of $S\in P$, we can write $S=S_A\times S_B$ where $S_A\in P_A$ and $S_B\in P_B$.
+    
+
+        \begin{lemma}
+        Given a sequence of functions $h_k:X\to\R$. Then,
+        \begin{equation}
+            \sum_k\inf_{x\in X}\,h_k(x)=\inf_{x\in X}\,\sum_kh_k(x)
+        \end{equation}
+        \begin{proof} 
+            \begin{align}    
+                \inf_{x\in X}\,h_k(x)\leq h_k(y)\text{ for all y}  \\          
+                \sum_k\inf_P\,h_k(x)\leq \sum_k\inf_P\,\sum_kh_k(x)\\
+                \sum_k\inf_P\,\sum_kh_k(x)&=\sum_k\inf_P\,\sum_kh_k(x)\text{ for all $k$}\\
+            \end{align}
+        \end{proof}
+        \end{lemma}
+
+        Given a partition $P=P_A\times P_B$ of $R$,
+        \begin{align}
+            L(f,P)&=\sum_{S\in P}\vol(S)\inf_{(x,y)\in S}f(x,y)\\
+            &=\sum_{S_A\in P_A\land S_B\in S_B} \vol(S_A)\vol(S_B)\inf_{x\in S_A} \inf_{y\in S_B} f(x,y)\\
+            &=\sum_{S_A\in P_A}\vol(S_A)\sum_{S_B\in P_B}\vol(S_B\inf_{x\in S_A} \inf_{y\in S_B} f(x,y))\\
+            &\leq\sum_{S_A\in P_A}\vol(S_A)\inf{x\in S_A}\sum_{S_B\in P_B}\vol(S_B)\inf_{y\in S_B} f(x,y)\\
+            &\leq\sum_{S_A\in P_A}\vol(S_A)\inf{x\in S_A}\ubar{g}(x)\\
+            &=L(g_,P_A)
+        \end{align}
+        We have shown that $L(f,P)\leq L(\ubar{g},P_A)$. By similar reasoning, we can show $U(\bar{g},P_A)\leq U(f,P)$. Now we show $L(\ubar{g},P_A)\leq U(\bar{g},P_A)$. This can be done by two ways. we know $L(\bar{g},P_A)$ and $U(\ubar{g},P_A)$ are both less than $U(\bar{g},P_A)$ and greater than $L(\ubar{g},P_A)$. 
+
+        Now, assume $\varepsilon>0$ and $P$ was chosen such that $U(f,P)-L(f,P)<\varepsilon$ as $f$ is integrable. Then, $U(\ubar{g},P_A)-L(\ubar{g},P_A)<\varepsilon$ and $U(\bar{g},P_A)-L(\bar{g},P_A)<\varepsilon$. So $\ubar{g}$ and $\bar{g}$ are both integrable on $A$. Also, $\int_A\bar{g}$ and $\int_A\ubar{g}$ are between $L(f,P)$ and $U(f,P)$ for any $P$. Taking the infimum over all $P$, for $U(f,P)$ and the supremum over all $P$ for $L(f,P)$ we get 
+        \begin{align}
+            &\int f\leq \int \bar{g}\leq \int f\\
+            &\int f\leq \int\ubar{g}\leq \int f
+        \end{align}
+        Thus, 
+        \begin{equation}
+            
+        \end{equation}
+    \end{proof}
+\end{theorem}
 \end{document}
