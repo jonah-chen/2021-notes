@@ -875,8 +875,67 @@ Our goal now is to prove a theorem of the following form:
         \end{align}
         Thus, 
         \begin{equation}
-            
+            \int f=\int\bar{g}=\int\ubar{g}
         \end{equation}
     \end{proof}
+\end{theorem}
+\begin{theorem}[Partitions of Unity]
+    Given any $A\in\R^n$, and $U$ is an open cover of $A$, $\exists$ open $W\supset A$ and a countable collection of functions $\Phi=\{\varphi:W\to[0,1]\}\subset C^\infty$ such that
+    \begin{enumerate}
+        \item Locally finite:
+        \begin{equation}
+            \forall x\in W\exists\,\text{neighborhood}\,V\ni x\,|\{i:\mathrm{supp}\phi\cap V\neq\phi\}|<\infty
+        \end{equation}
+        \item Sum = 1
+        \begin{equation}
+            \forall x\in A\,\
+        \end{equation}
+    \end{enumerate}
+    \begin{lemma}
+        Given a compact $C\subset U$ open set $U$, $\exists f\in C^\infty(\R^n)$ s.t. $f|_C=1$, $\mathrm{supp}f\subset U$.
+
+        \begin{proof}
+            Step 1: $\exists$ smooth 1D seashore: $\sigma\in C^\infty(\R)$ where
+            \begin{equation}
+                \begin{cases}
+                    \sigma(x)=0 & x\leq 0\\
+                    \sigma(x)>0 & x>0
+                \end{cases}
+            \end{equation}
+            One such $\sigma$ is 
+            \begin{equation}
+                \sigma(x)=\begin{cases}
+                    0 & x\leq 0\\
+                    e^{-1/x} & x>0
+                \end{cases}
+            \end{equation}
+            
+            Step 2: $\exists$ smooth 1D bumps $\beta_\epsilon\in C^\infty(\R)$. Set $\beta_\epsilon(x)=\sigma(\epsilon+x)\sigma(\epsilon-x)$
+            
+            Step 3: $\exists$ smooth nD bumps: given $a\in\R^n,\epsilon>0\exists\,\beta\in C^\infty,\beta\geq0,\beta(a)>0,\beta(x)=0\impliedby|x-a|<\epsilon$
+            \begin{equation}
+                \beta(x)=\beta_{\epsilon^2}(|x-a|^2)
+            \end{equation}
+
+            Step 4: $\exists$ smooth step functions $\Theta:\R\to[0,1]\in C^\infty(\R)$ such that $\Theta(x)=\begin{cases}
+                0 & x\leq0\\
+                1 & x\geq1
+            \end{cases}$.
+            \begin{equation}
+                \Theta(x)=\frac{\int_0^x\beta_{1/2}(t-\frac{1}{2})\dd x}{\int_0^1\beta_{1/2}(t-\frac{1}{2})\dd x}
+            \end{equation}
+
+            For each $x\in C$ find $\epsilon_x>0$ such that $\overline{B_{\epsilon_x}(x)}\subset U$ because $U$ is open. 
+            
+            $\{B_{\epsilon_x}(x)\}$ is an open cover of $C$, hence it has a finite subcover because $C$ is compact, so 
+            \begin{equation}
+                \bigcup_{i=1}^m B_{\epsilon_{x_i}}(x_i)\supset C
+            \end{equation}
+            Set $f_0(x)=\sum_{i=1}^m\beta_{\epsilon_{x_i}}(x-x_i)$ which is positive for $x\in C$. $f_0$ is a continuous function on a compact set bounded below by some $b>0$ on $C$. Then,
+            \begin{equation}
+                f(x)=\Theta(\frac{1}{b}f_0(x))
+            \end{equation}
+        \end{proof}
+    \end{lemma}
 \end{theorem}
 \end{document}

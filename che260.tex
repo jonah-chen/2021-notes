@@ -19,15 +19,23 @@
 \begin{document}
     \maketitle
     \tableofcontents
-	
-    \section{Conduction}
-
-	\subsection{Fourier's Law (relates heat flux to temperature)}
+	\section{Basics}
+	Fourier's law relates heat flux to temperature
 	\begin{equation}
 		\dot q=-k\nabla T
 	\end{equation}
 
+	Newton's Law of Cooling is the fundamental law of convection.
+	\begin{equation}
+		\dot q=h(T-T_\infty)
+	\end{equation}
 
+	Thermal radiation is
+	\begin{equation}
+		\dot q=\sigma A(T^4-T_\infty^4)
+	\end{equation}
+
+    \section{Conduction}
 	\subsection{Heat Equation}
 	The heat equation is a statement of the first law (conservation of energy), which describes conduction.
 
@@ -35,6 +43,7 @@
 		(\partial_t-\alpha\nabla^2)T=0
 	\end{equation}
 	
+	\subsection{Steady State}
 	In steady state, $\partial_t T=0$, so the heat equation reduces to Laplace's equation for temperature $\nabla^2 T=0$.
 	Energy Balance for something:	
 	\begin{equation}
@@ -106,13 +115,6 @@
 	\begin{equation}
 		r_{crit}=\frac{k}{h}
 	\end{equation}
-   
-
-	\section{Convection}
-	Newton's Law of Cooling:
-	\begin{equation}
-		\dot q=h(T-T_\infty)
-	\end{equation}
 
 	For a very long fin with perimeter $P$, conduction and convection coefficients $k$ and $h$ in an enviroment at $T_\infty$, (we are also assuming steady state somehow, but not sure how)
 	\begin{equation}
@@ -128,16 +130,56 @@
 	\end{equation}
 	The rate of heat loss is just equal to the heat entering the base of the fin. Using fourier's law,
 	\begin{equation}
-		\dot Q=\sqrt{hPkA}(T_b-T\infty)
+		\dot Q=\sqrt{hPkA}(T_b-T_\infty)
 	\end{equation}
 
 	For a finitely long fin, assume the heat transfer to the air at the end is negligiable (adiabatic). Hence, $\partial_x\Theta|_{x=L}=0$.	
 	\begin{equation}
 		\Theta=\Theta_b\frac{\cosh(a(L-x))}{\cosh(aL)}
 	\end{equation}
-	By similar means, the rate of heat loss for this case is
+	By similar means, the \textbf{rate of heat loss} for this case is
 	\begin{equation}
-		\dot Q=\dot Q_\infty\tanh(aL)
+		\dot Q=\dot Q_\infty2
 	\end{equation}
+	Where $\dot Q_\infty$ is the rate of heat loss assuming the fin is infinitely long.
+
 	If there is some heat lost to the air, we can correct the length $L_C=L+\frac{A}{P}$
+
+	To define the \textbf{fin efficiency}, we first define the ``ideal'' fin to be a fin with infinite heat conductivity, and 
+	\begin{equation}
+		\eta_{fin}:=\frac{\dot Q_{fin}}{\dot Q_{fin,max}}=\frac{\tanh(aL)}{aL}
+	\end{equation}
+	For $L>>a$, $\tanh(aL)$ is approximately $1$.
+
+	We define the \textbf{fin effectiveness} as
+	\begin{equation}
+		\varepsilon_{fin}:=\frac{\dot Q_{fin}}{\dot Q_{no\,fin}}=\sqrt{\frac{kP}{hA}}
+	\end{equation}
+	To maximize effectiveness,
+	\begin{itemize}
+		\item Maximize $P/A$, use a lot of small fins. 
+		\item Maximize $k$, use copper or something similar.
+		\item Don't use fin for liquids because $h$ is big.
+		\item Generally, we use fins if $\epsilon\gtrapprox2$.
+	\end{itemize}
+	
+	\subsection{Lump Bodies}
+	The lump capacitance is defined as $L=\nabla^2T$. For a lump at uniform temperature, $L=0$ and the heat equation reduces to 
+	\begin{equation}
+		\partial_tT=0
+	\end{equation}
+	This assumption is valud when the object is small or have high thermal conductivity.
+
+	The stored thermal energy of the lump is being lost to the surrounding through convection. So $\dot E_{store}+\dot Q_{conv}=0$. Defining a time constant $\tau=\frac{\rho vc_p}{hA}$ and a dimensionless temperature $\Theta=\frac{T-T_\infty}{T_0-T_\infty}$,
+	\begin{equation}
+		\Theta=e^{-t/\tau}
+	\end{equation}
+
+	The dimensionless constant $hL/k$ is called Biot's number
+	\begin{equation}
+		\frac{T_1-T_2}{T_2-T_\infty}=B
+	\end{equation}
+	where $k$ is thermal conductivity of the \textbf{solid}. If $\mathrm{Bi}>>1$, then the temperature drop within the body is much greater than temperature drop outside the body. If $\mathrm{Bi}<<1$, then the temperature drop within the body is much smaller than temperature drop outside the body. Hence, the body can be considered as a lump.
+
+	
 \end{document}
